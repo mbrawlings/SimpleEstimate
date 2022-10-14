@@ -21,6 +21,13 @@ class WindowCountController {
     }()
     
     var windowCounts: [WindowCount] = []
+    var filteredWindowCounts: [WindowCount] = []
+    
+    func filter(for client: Client) {
+        filteredWindowCounts = windowCounts.filter { eachWindowCount in
+            eachWindowCount.client == client
+        }
+    }
     
     //CRUD
     func createWindowCount(countDescription: String, bigWindow: Int, regularWindow: Int, smallWindow: Int, smallLadder: Int, bigLadder: Int, hardWater: Int, screen: Int, hardWaterSmall: Int, construction: Int, track: Int, discount: Double, totalPrice: Double, client: Client) {
@@ -29,12 +36,13 @@ class WindowCountController {
         CoreDataStack.saveContext()
     }
     func fetchCounts() {
-        let windowCount = (try? CoreDataStack.context.fetch(self.fetchRequest)) ?? []
-        self.windowCounts = windowCount
+        let windowCounts = (try? CoreDataStack.context.fetch(self.fetchRequest)) ?? []
+        self.windowCounts = windowCounts
     }
     func deleteWindowCount(windowCount: WindowCount) {
         guard let index = windowCounts.firstIndex(of: windowCount) else { return }
         windowCounts.remove(at: index)
+        filteredWindowCounts.remove(at: index)
         CoreDataStack.context.delete(windowCount)
         CoreDataStack.saveContext()
     }

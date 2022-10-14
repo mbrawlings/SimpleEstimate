@@ -11,7 +11,7 @@ class WindowCountTableViewController: UITableViewController {
     
     //MARK: - PROPERTIES
     var client: Client?
-    var filteredWindowCounts: [WindowCount] = []
+//    var filteredWindowCounts: [WindowCount] = []
 
     //MARK: - LIFECYCLES
     override func viewDidLoad() {
@@ -19,25 +19,27 @@ class WindowCountTableViewController: UITableViewController {
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-        setupView()
+        guard let client = client else { return }
+        WindowCountController.shared.filter(for: client)
+//        setupView()
         tableView.reloadData()
     }
     
     //MARK: - HELPER METHODS
-    func setupView() {
-        filteredWindowCounts = WindowCountController.shared.windowCounts.filter { eachWindowCount in
-            eachWindowCount.client == self.client
-        }
-    }
+//    func setupView() {
+//        filteredWindowCounts = WindowCountController.shared.windowCounts.filter { eachWindowCount in
+//            eachWindowCount.client == self.client
+//        }
+//    }
 
     // MARK: - TABLE VIEW DATA SOURCE
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return filteredWindowCounts.count
+        return WindowCountController.shared.filteredWindowCounts.count
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "windowCountCell", for: indexPath)
-        let windowCount = filteredWindowCounts[indexPath.row]
+        let windowCount = WindowCountController.shared.filteredWindowCounts[indexPath.row]
         
         guard let descriptionOfClean = windowCount.countDescription else { return cell }
         
@@ -53,7 +55,7 @@ class WindowCountTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            let windowCountToDelete = WindowCountController.shared.windowCounts[indexPath.row]
+            let windowCountToDelete = WindowCountController.shared.filteredWindowCounts[indexPath.row]
             WindowCountController.shared.deleteWindowCount(windowCount: windowCountToDelete)
             tableView.deleteRows(at: [indexPath], with: .fade)
         }

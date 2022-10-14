@@ -11,7 +11,6 @@ class ClientsTableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -34,7 +33,6 @@ class ClientsTableViewController: UITableViewController {
         
         content.text = client.name
         content.secondaryText = client.address
-        
         
         cell.contentConfiguration = content
 

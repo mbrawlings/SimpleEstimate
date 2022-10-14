@@ -22,7 +22,7 @@ class NewPriceViewController: UIViewController {
     var hardWaterSmallAmount: Double = 0.0
     var constructionAmount: Double = 0.0
     var trackAmount: Double = 0.0
-    var calculatedPrice: String = "0.00"
+    var calculatedPrice: String = "$0.00"
     var discountChosen: Double = 1.0
 
     //MARK: - Outlets
@@ -126,16 +126,15 @@ class NewPriceViewController: UIViewController {
         guard let descriptionCount = descriptionCountTextField.text,
               let client = client
         else { return }
-        WindowCountController.shared.createWindowCount(countDescription: descriptionCount, bigWindow: Int(bigWindowAmount), regularWindow: Int(regularWindowAmount), smallWindow: Int(smallWindowAmount), smallLadder: Int(smallLadderAmount), bigLadder: Int(bigLadderAmount), hardWater: Int(hardWaterAmount), screen: Int(screenAmount), hardWaterSmall: Int(hardWaterSmallAmount), construction: Int(constructionAmount), track: Int(trackAmount), discount: discountChosen, totalPrice: Double(calculatedPrice) ?? 0.0, client: client)
+        WindowCountController.shared.createWindowCount(countDescription: descriptionCount, bigWindow: Int(bigWindowAmount), regularWindow: Int(regularWindowAmount), smallWindow: Int(smallWindowAmount), smallLadder: Int(smallLadderAmount), bigLadder: Int(bigLadderAmount), hardWater: Int(hardWaterAmount), screen: Int(screenAmount), hardWaterSmall: Int(hardWaterSmallAmount), construction: Int(constructionAmount), track: Int(trackAmount), discount: discountChosen, totalPrice: calculatedPrice, client: client)
         navigationController?.popViewController(animated: true)
     }
     
     //MARK: - Helper Functions
     func calculateTotal() {
-        var calculations: Double = (bigWindowAmount*5.0 + regularWindowAmount*2.0 + smallWindowAmount + smallLadderAmount/2 + bigLadderAmount + hardWaterAmount + hardWaterSmallAmount*0.35 + constructionAmount + screenAmount/2 + trackAmount/2) * discountChosen
+        let calculations: Double = (bigWindowAmount*5.0 + regularWindowAmount*2.0 + smallWindowAmount + smallLadderAmount/2 + bigLadderAmount + hardWaterAmount + hardWaterSmallAmount*0.35 + constructionAmount + screenAmount/2 + trackAmount/2) * discountChosen
         calculatedPrice = String(format: "$%.2f", calculations)
         totalPriceLabel.text = calculatedPrice
-        print(calculatedPrice)
     }
     
 

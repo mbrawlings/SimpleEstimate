@@ -30,7 +30,7 @@ class WindowCountController {
     }
     
     //CRUD
-    func createWindowCount(countDescription: String, bigWindow: Int, regularWindow: Int, smallWindow: Int, smallLadder: Int, bigLadder: Int, hardWater: Int, screen: Int, hardWaterSmall: Int, construction: Int, track: Int, discount: Double, totalPrice: Double, client: Client) {
+    func createWindowCount(countDescription: String, bigWindow: Int, regularWindow: Int, smallWindow: Int, smallLadder: Int, bigLadder: Int, hardWater: Int, screen: Int, hardWaterSmall: Int, construction: Int, track: Int, discount: Double, totalPrice: String, client: Client) {
         let newWindowCount = WindowCount(countDescription: countDescription, bigWindow: bigWindow, regularWindow: regularWindow, smallWindow: smallWindow, smallLadder: smallLadder, bigLadder: bigLadder, hardWater: hardWater, screen: screen, hardWaterSmall: hardWaterSmall, construction: construction, track: track, discount: discount, totalPrice: totalPrice, client: client)
         windowCounts.append(newWindowCount)
         CoreDataStack.saveContext()

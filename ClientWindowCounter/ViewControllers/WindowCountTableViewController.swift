@@ -41,11 +41,13 @@ class WindowCountTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "windowCountCell", for: indexPath)
         let windowCount = WindowCountController.shared.filteredWindowCounts[indexPath.row]
         
-        guard let descriptionOfClean = windowCount.countDescription else { return cell }
+        guard let descriptionOfClean = windowCount.countDescription,
+              let totalPrice = windowCount.totalPrice
+        else { return cell }
         
         var content = cell.defaultContentConfiguration()
         
-        content.text = "$\(windowCount.totalPrice)"
+        content.text = totalPrice
         content.secondaryText = "\(descriptionOfClean)"
         
         cell.contentConfiguration = content

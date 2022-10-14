@@ -23,7 +23,7 @@ class EditPriceViewController: UIViewController {
     var hardWaterSmallAmount: Double = 0.0
     var constructionAmount: Double = 0.0
     var trackAmount: Double = 0.0
-    var calculatedPrice: Double = 0.0
+    var calculatedPrice: String = "$0.00"
     var discountChosen: Double = 0.0
     
     
@@ -48,9 +48,7 @@ class EditPriceViewController: UIViewController {
     //MARK: - Lifecycles
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("\(calculatedPrice) before view setup")
         setupView()
-        print("\(calculatedPrice) after view setup")
 
         // Do any additional setup after loading the view.
     }
@@ -137,8 +135,6 @@ class EditPriceViewController: UIViewController {
         calculateTotal()
     }
     @IBAction func discountControlAdjusted(_ sender: UISegmentedControl) {
-        print(discountChosen, "-- Right as control was clicked")
-
         switch discountSegmentedControl.selectedSegmentIndex {
         case 0:
             discountChosen = 1.0
@@ -151,7 +147,6 @@ class EditPriceViewController: UIViewController {
         default:
             discountChosen = 1.0
         }
-        print(discountChosen, "-- After control switch statement has run")
         calculateTotal()
 
 
@@ -168,7 +163,9 @@ class EditPriceViewController: UIViewController {
     
     //MARK: - Helper Functions
     func setupView() {
-        guard let editPricing = self.editPricing else { return }
+        guard let editPricing = self.editPricing,
+              let totalPrice = editPricing.totalPrice
+        else { return }
         descriptionTextField.text = editPricing.countDescription
         bigWindowAmount = Double(editPricing.bigWindow)
         bigWindowCount.text = "\(Int(bigWindowAmount))"
@@ -190,10 +187,9 @@ class EditPriceViewController: UIViewController {
         constructionCount.text = "\(Int(constructionAmount))"
         trackAmount = Double(editPricing.track)
         trackCount.text = "\(Int(trackAmount))"
-        calculatedPrice = Double(editPricing.totalPrice)
-        totalPriceLabel.text = String(format: "$%.2f", calculatedPrice)
+        calculatedPrice = totalPrice
+        totalPriceLabel.text = calculatedPrice
         discountChosen = Double(editPricing.discount)
-        print(discountChosen, "-- When entering page")
         switch discountChosen {
         case 1.0:
             discountSegmentedControl.selectedSegmentIndex = 0
@@ -206,18 +202,12 @@ class EditPriceViewController: UIViewController {
         default:
             discountSegmentedControl.selectedSegmentIndex = 0
         }
-        print(discountChosen, "-- After page has loaded")
-
     }
     
     func calculateTotal() {
-        print("\(calculatedPrice) entering calculate total func")
-
-        calculatedPrice = (bigWindowAmount*5.0 + regularWindowAmount*2.0 + smallWindowAmount + smallLadderAmount/2 + bigLadderAmount + hardWaterAmount + hardWaterSmallAmount*0.35 + constructionAmount + screenAmount/2 + trackAmount/2) * discountChosen
-        print("\(calculatedPrice) after calculate total function ran")
-
-        totalPriceLabel.text = String(format: "$%.2f", calculatedPrice)
-        print("\(calculatedPrice) after formatted")
+        let calculations: Double = (bigWindowAmount*5.0 + regularWindowAmount*2.0 + smallWindowAmount + smallLadderAmount/2 + bigLadderAmount + hardWaterAmount + hardWaterSmallAmount*0.35 + constructionAmount + screenAmount/2 + trackAmount/2) * discountChosen
+        calculatedPrice = String(format: "$%.2f", calculations)
+        totalPriceLabel.text = calculatedPrice
     }
 
     /*

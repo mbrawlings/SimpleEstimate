@@ -8,26 +8,36 @@
 import UIKit
 
 class WindowCountTableViewController: UITableViewController {
+    
+    //MARK: - PROPERTIES
+    var client: Client?
+    var filteredWindowCounts: [WindowCount] = []
 
+    //MARK: - LIFECYCLES
     override func viewDidLoad() {
         super.viewDidLoad()
-
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
+        setupView()
         tableView.reloadData()
     }
+    
+    //MARK: - HELPER METHODS
+    func setupView() {
+        filteredWindowCounts = WindowCountController.shared.windowCounts.filter { eachWindowCount in
+            eachWindowCount.client == self.client
+        }
+    }
 
-    // MARK: - Table view data source
+    // MARK: - TABLE VIEW DATA SOURCE
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return WindowCountController.shared.windowCounts.count
+        return filteredWindowCounts.count
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "windowCountCell", for: indexPath)
-
-        let windowCount = WindowCountController.shared.windowCounts[indexPath.row]
+        let windowCount = filteredWindowCounts[indexPath.row]
         
         guard let descriptionOfClean = windowCount.countDescription else { return cell }
         
@@ -37,7 +47,7 @@ class WindowCountTableViewController: UITableViewController {
         content.secondaryText = "\(descriptionOfClean)"
         
         cell.contentConfiguration = content
-
+        
         return cell
     }
     
@@ -79,8 +89,13 @@ class WindowCountTableViewController: UITableViewController {
     */
 
 
-    // MARK: - Navigation
+    // MARK: - NAVIGATION
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "toAddPriceVC" {
+            guard let destination = segue.destination as? NewPriceViewController else { return }
+            destination.client = self.client
+        }
+        
         if segue.identifier == "toEditPricingVC" {
             guard let indexPath = tableView.indexPathForSelectedRow,
                   let destination = segue.destination as? EditPriceViewController else { return }

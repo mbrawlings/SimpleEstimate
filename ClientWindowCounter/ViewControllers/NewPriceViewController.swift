@@ -10,6 +10,8 @@ import UIKit
 class NewPriceViewController: UIViewController {
     
     //MARK: - Properties
+    var client: Client?
+    
     var bigWindowAmount: Double = 0.0
     var regularWindowAmount: Double = 0.0
     var smallWindowAmount: Double = 0.0
@@ -121,9 +123,10 @@ class NewPriceViewController: UIViewController {
         calculateTotal()
     }
     @IBAction func doneButtonTapped(_ sender: UIBarButtonItem) {
-        guard let descriptionCount = descriptionCountTextField.text
+        guard let descriptionCount = descriptionCountTextField.text,
+              let client = client
         else { return }
-        WindowCountController.shared.createWindowCount(countDescription: descriptionCount, bigWindow: Int(bigWindowAmount), regularWindow: Int(regularWindowAmount), smallWindow: Int(smallWindowAmount), smallLadder: Int(smallLadderAmount), bigLadder: Int(bigLadderAmount), hardWater: Int(hardWaterAmount), screen: Int(screenAmount), hardWaterSmall: Int(hardWaterSmallAmount), construction: Int(constructionAmount), track: Int(trackAmount), discount: discountChosen, totalPrice: calculatedPrice)
+        WindowCountController.shared.createWindowCount(countDescription: descriptionCount, bigWindow: Int(bigWindowAmount), regularWindow: Int(regularWindowAmount), smallWindow: Int(smallWindowAmount), smallLadder: Int(smallLadderAmount), bigLadder: Int(bigLadderAmount), hardWater: Int(hardWaterAmount), screen: Int(screenAmount), hardWaterSmall: Int(hardWaterSmallAmount), construction: Int(constructionAmount), track: Int(trackAmount), discount: discountChosen, totalPrice: calculatedPrice, client: client)
         navigationController?.popViewController(animated: true)
     }
     

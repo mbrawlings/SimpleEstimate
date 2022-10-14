@@ -15,6 +15,7 @@ class ClientController {
     }
     
     var clients: [Client] = []
+//    var clientWindows: [Client:[WindowCount]]
     
     private lazy var fetchRequest: NSFetchRequest<Client> = {
         let request = NSFetchRequest<Client>(entityName: "Client")

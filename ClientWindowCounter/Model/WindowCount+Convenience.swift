@@ -8,7 +8,7 @@
 import CoreData
 
 extension WindowCount {
-    @discardableResult convenience init(countDescription: String, bigWindow: Int, regularWindow: Int, smallWindow: Int, smallLadder: Int, bigLadder: Int, hardWater: Int, screen: Int, hardWaterSmall: Int, construction: Int, track: Int, discount: Double, totalPrice: Double, context: NSManagedObjectContext = CoreDataStack.context) {
+    @discardableResult convenience init(countDescription: String, bigWindow: Int, regularWindow: Int, smallWindow: Int, smallLadder: Int, bigLadder: Int, hardWater: Int, screen: Int, hardWaterSmall: Int, construction: Int, track: Int, discount: Double, totalPrice: Double, client: Client, context: NSManagedObjectContext = CoreDataStack.context) {
         self.init(context: context)
         self.countDescription = countDescription
         self.bigWindow = Int64(bigWindow)
@@ -23,5 +23,6 @@ extension WindowCount {
         self.track = Int64(track)
         self.discount = discount
         self.totalPrice = totalPrice
+        self.client = client
     }
 }

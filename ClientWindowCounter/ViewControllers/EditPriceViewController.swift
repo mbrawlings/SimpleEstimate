@@ -23,7 +23,7 @@ class EditPriceViewController: UIViewController {
     var constructionAmount: Double = 0.0
     var trackAmount: Double = 0.0
     var calculatedPrice: Double = 0.0
-    var discountChosen: Double = 1.0
+    var discountChosen: Double = 0.0
     
     
     
@@ -47,7 +47,10 @@ class EditPriceViewController: UIViewController {
     //MARK: - Lifecycles
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupView()
+//        print("\(calculatedPrice) before view setup")
+//        setupView()
+//        print("\(calculatedPrice) after view setup")
+
         // Do any additional setup after loading the view.
     }
     
@@ -58,6 +61,7 @@ class EditPriceViewController: UIViewController {
         bigWindowAmount += sender.value
         bigWindowCount.text = "\(Int(bigWindowAmount))"
         sender.value = 0.0
+        calculateTotal()
     }
     @IBAction func regularWindowStepper(_ sender: UIStepper) {
         sender.maximumValue = 1.0
@@ -123,6 +127,19 @@ class EditPriceViewController: UIViewController {
         sender.value = 0.0
     }
     @IBAction func discountControlAdjusted(_ sender: UISegmentedControl) {
+        switch discountSegmentedControl.selectedSegmentIndex {
+        case 0:
+            discountChosen = 1.0
+        case 1:
+            discountChosen = 0.9
+        case 2:
+            discountChosen = 0.85
+        case 3:
+            discountChosen = 0.8
+        default:
+            discountChosen = 1.0
+        }
+        calculateTotal()
     }
     @IBAction func saveChangesButtonTapped(_ sender: UIBarButtonItem) {
     }
@@ -151,20 +168,27 @@ class EditPriceViewController: UIViewController {
         trackAmount = Double(editPricing.track)
         trackCount.text = "\(Int(trackAmount))"
         calculatedPrice = Double(editPricing.totalPrice)
-        totalPriceLabel.text = "\(calculatedPrice)"
+        totalPriceLabel.text = String(format: "$%.2f", calculatedPrice)
         discountChosen = Double(editPricing.discount)
+//        print(discountChosen)
         switch discountChosen {
         case 1.0:
-            discountSegmentedControl.setEnabled(true, forSegmentAt: 0)
+            discountSegmentedControl.selectedSegmentIndex = 0
         case 0.9:
-            discountSegmentedControl.setEnabled(true, forSegmentAt: 1)
+            discountSegmentedControl.selectedSegmentIndex = 1
         case 0.85:
-            discountSegmentedControl.setEnabled(true, forSegmentAt: 2)
+            discountSegmentedControl.selectedSegmentIndex = 2
         case 0.8:
-            discountSegmentedControl.setEnabled(true, forSegmentAt: 3)
+            discountSegmentedControl.selectedSegmentIndex = 3
         default:
-            discountSegmentedControl.setEnabled(true, forSegmentAt: 0)
+            discountSegmentedControl.selectedSegmentIndex = 0
         }
+    }
+    
+    func calculateTotal() {
+        calculatedPrice = (bigWindowAmount*5.0 + regularWindowAmount*2.0 + smallWindowAmount + smallLadderAmount/2 + bigLadderAmount + hardWaterAmount + hardWaterSmallAmount*0.35 + constructionAmount + screenAmount/2 + trackAmount/2) * discountChosen
+        totalPriceLabel.text = String(format: "$%.2f", calculatedPrice)
+//        print("\(calculatedPrice) after calculate total function ran")
     }
 
     /*

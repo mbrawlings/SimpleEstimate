@@ -512,7 +512,7 @@
                     <navigationItem key="navigationItem" title="Pricing" id="N7r-Mz-PJI">
                         <barButtonItem key="rightBarButtonItem" title="Add Price" id="ZW8-ek-1Ig">
                             <connections>
-                                <segue destination="und-xI-Zbn" kind="show" id="6XK-KP-yiL"/>
+                                <segue destination="und-xI-Zbn" kind="show" identifier="toAddPriceVC" id="6XK-KP-yiL"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -786,7 +786,7 @@
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="ZVr-JY-bro">
+                                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" translatesAutoresizingMaskIntoConstraints="NO" id="ZVr-JY-bro">
                                                 <rect key="frame" x="187" y="3.3333333333333712" width="187" height="32"/>
                                                 <segments>
                                                     <segment title="0%"/>

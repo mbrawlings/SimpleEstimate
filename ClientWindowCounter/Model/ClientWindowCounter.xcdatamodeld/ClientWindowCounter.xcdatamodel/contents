@@ -3,7 +3,7 @@
     <entity name="Client" representedClassName="Client" syncable="YES" codeGenerationType="class">
         <attribute name="address" optional="YES" attributeType="String"/>
         <attribute name="name" optional="YES" attributeType="String"/>
-        <relationship name="relationship" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="WindowCount" inverseName="relationship" inverseEntity="WindowCount"/>
+        <relationship name="windowCount" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="WindowCount" inverseName="client" inverseEntity="WindowCount"/>
     </entity>
     <entity name="WindowCount" representedClassName="WindowCount" syncable="YES" codeGenerationType="class">
         <attribute name="bigLadder" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
@@ -19,6 +19,6 @@
         <attribute name="smallWindow" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="totalPrice" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="track" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
-        <relationship name="relationship" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Client" inverseName="relationship" inverseEntity="Client"/>
+        <relationship name="client" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Client" inverseName="windowCount" inverseEntity="Client"/>
     </entity>
 </model>

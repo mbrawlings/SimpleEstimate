@@ -46,8 +46,7 @@ class WindowCountController {
         CoreDataStack.context.delete(windowCount)
         CoreDataStack.saveContext()
     }
-    func editWindowCount() {
-        
+    func updateWindowCount(windowCount: WindowCount) {
     }
     
 }

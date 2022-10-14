@@ -10,6 +10,7 @@ import UIKit
 class EditPriceViewController: UIViewController {
     
     //MARK: - Properties
+    var client: Client?
     var editPricing: WindowCount?
         
     var bigWindowAmount: Double = 0.0
@@ -47,9 +48,9 @@ class EditPriceViewController: UIViewController {
     //MARK: - Lifecycles
     override func viewDidLoad() {
         super.viewDidLoad()
-//        print("\(calculatedPrice) before view setup")
-//        setupView()
-//        print("\(calculatedPrice) after view setup")
+        print("\(calculatedPrice) before view setup")
+        setupView()
+        print("\(calculatedPrice) after view setup")
 
         // Do any additional setup after loading the view.
     }
@@ -69,6 +70,7 @@ class EditPriceViewController: UIViewController {
         regularWindowAmount += sender.value
         regularWindowCount.text = "\(Int(regularWindowAmount))"
         sender.value = 0.0
+        calculateTotal()
     }
     @IBAction func smallWindowStepper(_ sender: UIStepper) {
         sender.maximumValue = 1.0
@@ -76,6 +78,7 @@ class EditPriceViewController: UIViewController {
         smallWindowAmount += sender.value
         smallWindowCount.text = "\(Int(smallWindowAmount))"
         sender.value = 0.0
+        calculateTotal()
     }
     @IBAction func bigLadderStepper(_ sender: UIStepper) {
         sender.maximumValue = 1.0
@@ -83,6 +86,7 @@ class EditPriceViewController: UIViewController {
         bigLadderAmount += sender.value
         bigLadderCount.text = "\(Int(bigLadderAmount))"
         sender.value = 0.0
+        calculateTotal()
     }
     @IBAction func smallLadderStepper(_ sender: UIStepper) {
         sender.maximumValue = 1.0
@@ -90,6 +94,7 @@ class EditPriceViewController: UIViewController {
         smallLadderAmount += sender.value
         smallLadderCount.text = "\(Int(smallLadderAmount))"
         sender.value = 0.0
+        calculateTotal()
     }
     @IBAction func screenStepper(_ sender: UIStepper) {
         sender.maximumValue = 1.0
@@ -97,6 +102,7 @@ class EditPriceViewController: UIViewController {
         screenAmount += sender.value
         screenCount.text = "\(Int(screenAmount))"
         sender.value = 0.0
+        calculateTotal()
     }
     @IBAction func hardWaterStepper(_ sender: UIStepper) {
         sender.maximumValue = 1.0
@@ -104,6 +110,7 @@ class EditPriceViewController: UIViewController {
         hardWaterAmount += sender.value
         hardWaterCount.text = "\(Int(hardWaterAmount))"
         sender.value = 0.0
+        calculateTotal()
     }
     @IBAction func hardWaterSmallStepper(_ sender: UIStepper) {
         sender.maximumValue = 1.0
@@ -111,6 +118,7 @@ class EditPriceViewController: UIViewController {
         hardWaterSmallAmount += sender.value
         hardWaterSmallCount.text = "\(Int(hardWaterSmallAmount))"
         sender.value = 0.0
+        calculateTotal()
     }
     @IBAction func constructionStepper(_ sender: UIStepper) {
         sender.maximumValue = 1.0
@@ -118,6 +126,7 @@ class EditPriceViewController: UIViewController {
         bigWindowAmount += sender.value
         bigWindowCount.text = "\(Int(bigWindowAmount))"
         sender.value = 0.0
+        calculateTotal()
     }
     @IBAction func trackStepper(_ sender: UIStepper) {
         sender.maximumValue = 1.0
@@ -125,8 +134,11 @@ class EditPriceViewController: UIViewController {
         constructionAmount += sender.value
         constructionCount.text = "\(Int(constructionAmount))"
         sender.value = 0.0
+        calculateTotal()
     }
     @IBAction func discountControlAdjusted(_ sender: UISegmentedControl) {
+        print(discountChosen, "-- Right as control was clicked")
+
         switch discountSegmentedControl.selectedSegmentIndex {
         case 0:
             discountChosen = 1.0
@@ -139,14 +151,25 @@ class EditPriceViewController: UIViewController {
         default:
             discountChosen = 1.0
         }
+        print(discountChosen, "-- After control switch statement has run")
         calculateTotal()
+
+
     }
     @IBAction func saveChangesButtonTapped(_ sender: UIBarButtonItem) {
+        guard let descriptionCount = descriptionTextField.text,
+              let client = client,
+              let oldWindowCount = editPricing
+        else { return }
+        WindowCountController.shared.createWindowCount(countDescription: descriptionCount, bigWindow: Int(bigWindowAmount), regularWindow: Int(regularWindowAmount), smallWindow: Int(smallWindowAmount), smallLadder: Int(smallLadderAmount), bigLadder: Int(bigLadderAmount), hardWater: Int(hardWaterAmount), screen: Int(screenAmount), hardWaterSmall: Int(hardWaterSmallAmount), construction: Int(constructionAmount), track: Int(trackAmount), discount: discountChosen, totalPrice: calculatedPrice, client: client)
+        WindowCountController.shared.deleteWindowCount(windowCount: oldWindowCount)
+        navigationController?.popViewController(animated: true)
     }
     
     //MARK: - Helper Functions
     func setupView() {
         guard let editPricing = self.editPricing else { return }
+        descriptionTextField.text = editPricing.countDescription
         bigWindowAmount = Double(editPricing.bigWindow)
         bigWindowCount.text = "\(Int(bigWindowAmount))"
         regularWindowAmount = Double(editPricing.regularWindow)
@@ -155,7 +178,7 @@ class EditPriceViewController: UIViewController {
         smallWindowCount.text = "\(Int(smallWindowAmount))"
         bigLadderAmount = Double(editPricing.bigLadder)
         bigLadderCount.text = "\(Int(bigLadderAmount))"
-        smallLadderAmount = Double(editPricing.bigWindow)
+        smallLadderAmount = Double(editPricing.smallLadder)
         smallLadderCount.text = "\(Int(smallLadderAmount))"
         screenAmount = Double(editPricing.screen)
         screenCount.text = "\(Int(screenAmount))"
@@ -170,7 +193,7 @@ class EditPriceViewController: UIViewController {
         calculatedPrice = Double(editPricing.totalPrice)
         totalPriceLabel.text = String(format: "$%.2f", calculatedPrice)
         discountChosen = Double(editPricing.discount)
-//        print(discountChosen)
+        print(discountChosen, "-- When entering page")
         switch discountChosen {
         case 1.0:
             discountSegmentedControl.selectedSegmentIndex = 0
@@ -183,12 +206,18 @@ class EditPriceViewController: UIViewController {
         default:
             discountSegmentedControl.selectedSegmentIndex = 0
         }
+        print(discountChosen, "-- After page has loaded")
+
     }
     
     func calculateTotal() {
+        print("\(calculatedPrice) entering calculate total func")
+
         calculatedPrice = (bigWindowAmount*5.0 + regularWindowAmount*2.0 + smallWindowAmount + smallLadderAmount/2 + bigLadderAmount + hardWaterAmount + hardWaterSmallAmount*0.35 + constructionAmount + screenAmount/2 + trackAmount/2) * discountChosen
+        print("\(calculatedPrice) after calculate total function ran")
+
         totalPriceLabel.text = String(format: "$%.2f", calculatedPrice)
-//        print("\(calculatedPrice) after calculate total function ran")
+        print("\(calculatedPrice) after formatted")
     }
 
     /*

@@ -101,8 +101,9 @@ class WindowCountTableViewController: UITableViewController {
         if segue.identifier == "toEditPricingVC" {
             guard let indexPath = tableView.indexPathForSelectedRow,
                   let destination = segue.destination as? EditPriceViewController else { return }
-            let itemToEdit = WindowCountController.shared.windowCounts[indexPath.row]
+            let itemToEdit = WindowCountController.shared.filteredWindowCounts[indexPath.row]
             destination.editPricing = itemToEdit
+            destination.client = self.client
         }
     }
 

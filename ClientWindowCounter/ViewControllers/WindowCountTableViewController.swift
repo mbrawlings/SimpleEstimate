@@ -48,6 +48,7 @@ class WindowCountTableViewController: UITableViewController {
         var content = cell.defaultContentConfiguration()
         
         content.text = totalPrice
+        
         content.secondaryText = "\(descriptionOfClean)"
         
         cell.contentConfiguration = content

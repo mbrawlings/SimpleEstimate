@@ -42,12 +42,19 @@ class NewPriceViewController: UIViewController {
     //MARK: - Lifecycles
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
     }
+    
+//    func stepperCalculator(sender: UIStepper, aspectAmount: inout Double, label: UILabel) {
+//        sender.maximumValue = Double.infinity
+//        aspectAmount = sender.value
+//        label.text = "\(Int(aspectAmount))"
+//        calculateTotal()
+//    }
     
     //MARK: - Action
     @IBAction func bigWindowStepper(_ sender: UIStepper) {
+//        stepperCalculator(sender: sender, aspectAmount: &bigWindowAmount, label: bigWindowCount)
+        
         sender.maximumValue = Double.infinity
         bigWindowAmount = sender.value
         bigWindowCount.text = "\(Int(bigWindowAmount))"

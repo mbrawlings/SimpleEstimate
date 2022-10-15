@@ -32,7 +32,11 @@ class ClientsTableViewController: UITableViewController {
         var content = cell.defaultContentConfiguration()
         
         content.text = client.name
+        
         content.secondaryText = client.address
+        
+        content.image = UIImage(systemName: "person.fill")
+        content.imageProperties.maximumSize = CGSize(width: 50, height: 50)
         
         cell.contentConfiguration = content
 

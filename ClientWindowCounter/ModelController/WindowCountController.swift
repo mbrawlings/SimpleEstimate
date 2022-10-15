@@ -40,9 +40,11 @@ class WindowCountController {
         self.windowCounts = windowCounts
     }
     func deleteWindowCount(windowCount: WindowCount) {
-        guard let index = windowCounts.firstIndex(of: windowCount) else { return }
+        guard let index = windowCounts.firstIndex(of: windowCount),
+              let filterIndex = filteredWindowCounts.firstIndex(of: windowCount)
+        else { return }
+        filteredWindowCounts.remove(at: filterIndex)
         windowCounts.remove(at: index)
-        filteredWindowCounts.remove(at: index)
         CoreDataStack.context.delete(windowCount)
         CoreDataStack.saveContext()
     }

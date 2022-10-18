@@ -23,6 +23,9 @@
 		0E2B34B128F0D954004507FC /* NewClientViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E2B34B028F0D954004507FC /* NewClientViewController.swift */; };
 		0E2B34B328F0D978004507FC /* NewPriceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E2B34B228F0D978004507FC /* NewPriceViewController.swift */; };
 		0E2B34B528F1FBA4004507FC /* EditPriceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E2B34B428F1FBA3004507FC /* EditPriceViewController.swift */; };
+		0EC682B428FDFFBE008F6884 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EC682B328FDFFBE008F6884 /* SettingsViewController.swift */; };
+		0EC682B728FE1535008F6884 /* Product+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EC682B628FE1535008F6884 /* Product+Convenience.swift */; };
+		0EC682B928FE181D008F6884 /* ProductController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EC682B828FE181D008F6884 /* ProductController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,6 +47,9 @@
 		0E2B34B028F0D954004507FC /* NewClientViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewClientViewController.swift; sourceTree = "<group>"; };
 		0E2B34B228F0D978004507FC /* NewPriceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewPriceViewController.swift; sourceTree = "<group>"; };
 		0E2B34B428F1FBA3004507FC /* EditPriceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPriceViewController.swift; sourceTree = "<group>"; };
+		0EC682B328FDFFBE008F6884 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		0EC682B628FE1535008F6884 /* Product+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Product+Convenience.swift"; sourceTree = "<group>"; };
+		0EC682B828FE181D008F6884 /* ProductController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,6 +110,7 @@
 				0E2B34B028F0D954004507FC /* NewClientViewController.swift */,
 				0E2B34B228F0D978004507FC /* NewPriceViewController.swift */,
 				0E2B34B428F1FBA3004507FC /* EditPriceViewController.swift */,
+				0EC682B328FDFFBE008F6884 /* SettingsViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -124,6 +131,7 @@
 				0E2B34A328F0C17E004507FC /* CoreDataStack.swift */,
 				0E2B34A128F0BF66004507FC /* WindowCount+Convenience.swift */,
 				0E2B34A828F0CD45004507FC /* Client+Convenience.swift */,
+				0EC682B628FE1535008F6884 /* Product+Convenience.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -133,6 +141,7 @@
 			children = (
 				0E2B34A628F0C426004507FC /* WindowCountController.swift */,
 				0E2B34AA28F0D342004507FC /* ClientController.swift */,
+				0EC682B828FE181D008F6884 /* ProductController.swift */,
 			);
 			path = ModelController;
 			sourceTree = "<group>";
@@ -213,10 +222,13 @@
 				0E2B34A728F0C426004507FC /* WindowCountController.swift in Sources */,
 				0E2B34B328F0D978004507FC /* NewPriceViewController.swift in Sources */,
 				0E2B34B528F1FBA4004507FC /* EditPriceViewController.swift in Sources */,
+				0EC682B728FE1535008F6884 /* Product+Convenience.swift in Sources */,
 				0E2B349128F0BCFF004507FC /* ClientWindowCounter.xcdatamodeld in Sources */,
+				0EC682B928FE181D008F6884 /* ProductController.swift in Sources */,
 				0E2B34AD28F0D5DD004507FC /* ClientsTableViewController.swift in Sources */,
 				0E2B34A428F0C17E004507FC /* CoreDataStack.swift in Sources */,
 				0E2B34A228F0BF66004507FC /* WindowCount+Convenience.swift in Sources */,
+				0EC682B428FDFFBE008F6884 /* SettingsViewController.swift in Sources */,
 				0E2B34AF28F0D70C004507FC /* WindowCountTableViewController.swift in Sources */,
 				0E2B34AB28F0D342004507FC /* ClientController.swift in Sources */,
 				0E2B348928F0BCFF004507FC /* SceneDelegate.swift in Sources */,
@@ -375,6 +387,7 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -403,6 +416,7 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

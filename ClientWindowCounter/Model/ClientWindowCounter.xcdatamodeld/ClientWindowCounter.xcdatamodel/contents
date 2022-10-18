@@ -5,6 +5,11 @@
         <attribute name="name" optional="YES" attributeType="String"/>
         <relationship name="windowCount" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="WindowCount" inverseName="client" inverseEntity="WindowCount"/>
     </entity>
+    <entity name="Product" representedClassName="Product" syncable="YES" codeGenerationType="class">
+        <attribute name="amount" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="price" optional="YES" attributeType="Double" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="text" optional="YES" attributeType="String" defaultValueString="Product"/>
+    </entity>
     <entity name="WindowCount" representedClassName="WindowCount" syncable="YES" codeGenerationType="class">
         <attribute name="bigLadder" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="bigWindow" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>

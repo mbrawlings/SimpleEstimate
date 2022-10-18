@@ -11,6 +11,7 @@ class ClientsTableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        print(ClientController.shared.clients[0].name)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -49,6 +50,32 @@ class ClientsTableViewController: UITableViewController {
             ClientController.shared.deleteClient(client: clientToDelete)
             tableView.deleteRows(at: [indexPath], with: .fade)
         }
+    }
+    
+    override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let edit = UIContextualAction(style: .normal, title: "Edit") { [weak self] (action, view, completionHandler) in
+            self?.handleEditClient()
+            completionHandler(true)
+        }
+        let delete = UIContextualAction(style: .destructive, title: "Delete") { [weak self] (action, view, completionHandler) in
+            self?.handleDeleteClient(indexPath: indexPath)
+            completionHandler(true)
+        }
+        edit.backgroundColor = .systemYellow
+        delete.backgroundColor = .systemRed
+        let configuration = UISwipeActionsConfiguration(actions: [delete, edit])
+        
+        return configuration
+    }
+    
+    func handleDeleteClient(indexPath: IndexPath) {
+        let clientToDelete = ClientController.shared.clients[indexPath.row]
+        ClientController.shared.deleteClient(client: clientToDelete)
+        tableView.deleteRows(at: [indexPath], with: .fade)
+    }
+    
+    func handleEditClient() {
+        
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

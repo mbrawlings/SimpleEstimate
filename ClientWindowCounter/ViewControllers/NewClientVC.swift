@@ -1,5 +1,5 @@
 //
-//  NewClientViewController.swift
+//  NewClientVC.swift
 //  ClientWindowCounter
 //
 //  Created by Matthew Rawlings on 10/7/22.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class NewClientViewController: UIViewController {
+class NewClientVC: UIViewController {
     
     //MARK: - Outlets
     

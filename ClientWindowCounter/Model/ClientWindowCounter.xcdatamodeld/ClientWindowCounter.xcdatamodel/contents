@@ -3,27 +3,23 @@
     <entity name="Client" representedClassName="Client" syncable="YES" codeGenerationType="class">
         <attribute name="address" optional="YES" attributeType="String"/>
         <attribute name="name" optional="YES" attributeType="String"/>
-        <relationship name="windowCount" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="WindowCount" inverseName="client" inverseEntity="WindowCount"/>
+        <relationship name="invoice" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Invoice" inverseName="client" inverseEntity="Invoice"/>
+    </entity>
+    <entity name="Invoice" representedClassName="Invoice" syncable="YES" codeGenerationType="class">
+        <attribute name="discount" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="invoiceDescription" optional="YES" attributeType="String"/>
+        <attribute name="totalPrice" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <relationship name="client" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Client" inverseName="invoice" inverseEntity="Client"/>
+        <relationship name="lineItems" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="LineItem" inverseName="invoice" inverseEntity="LineItem"/>
+    </entity>
+    <entity name="LineItem" representedClassName="LineItem" syncable="YES" codeGenerationType="class">
+        <attribute name="quantity" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <relationship name="invoice" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Invoice" inverseName="lineItems" inverseEntity="Invoice"/>
+        <relationship name="product" maxCount="1" deletionRule="Nullify" destinationEntity="Product" inverseName="lineItem" inverseEntity="Product"/>
     </entity>
     <entity name="Product" representedClassName="Product" syncable="YES" codeGenerationType="class">
-        <attribute name="amount" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="price" optional="YES" attributeType="Double" defaultValueString="0" usesScalarValueType="YES"/>
-        <attribute name="text" optional="YES" attributeType="String" defaultValueString="Product"/>
-    </entity>
-    <entity name="WindowCount" representedClassName="WindowCount" syncable="YES" codeGenerationType="class">
-        <attribute name="bigLadder" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
-        <attribute name="bigWindow" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
-        <attribute name="construction" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
-        <attribute name="countDescription" optional="YES" attributeType="String"/>
-        <attribute name="discount" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
-        <attribute name="hardWater" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
-        <attribute name="hardWaterSmall" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
-        <attribute name="regularWindow" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
-        <attribute name="screen" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
-        <attribute name="smallLadder" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
-        <attribute name="smallWindow" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
-        <attribute name="totalPrice" optional="YES" attributeType="String"/>
-        <attribute name="track" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
-        <relationship name="client" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Client" inverseName="windowCount" inverseEntity="Client"/>
+        <attribute name="productName" optional="YES" attributeType="String" defaultValueString="Product"/>
+        <relationship name="lineItem" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="LineItem" inverseName="product" inverseEntity="LineItem"/>
     </entity>
 </model>

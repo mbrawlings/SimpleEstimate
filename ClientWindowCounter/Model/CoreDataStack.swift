@@ -28,6 +28,8 @@ enum CoreDataStack {
          } catch {
             NSLog("Error saving context \(error)")
          }
+      } else {
+          print("there was nothing to save")
       }
-   }
+      }
 }

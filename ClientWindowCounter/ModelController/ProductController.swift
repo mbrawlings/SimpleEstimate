@@ -24,10 +24,11 @@ class ProductController {
     }()
     
     //CRUD
-    func updateProducts(text: String, price: Double, amount: Int) {
-        let newProduct = Product(text: text, price: price, amount: Int64(amount))
+    func createProduct(productName: String, price: Double) {
+        let newProduct = Product(productName: productName, price: price)
         products.append(newProduct)
         CoreDataStack.saveContext()
+        fetchProducts()
     }
     
     func fetchProducts() {
@@ -36,7 +37,15 @@ class ProductController {
         self.products = products
     }
     
-    func deleteProducts() {
-        
+    func deleteProduct(product: Product) {
+        guard let index = products.firstIndex(of: product) else { return }
+        products.remove(at: index)
+        CoreDataStack.context.delete(product)
+        CoreDataStack.saveContext()
+        fetchProducts()
+    }
+    
+    func editProduct(product: Product) {
+        guard let index = products.firstIndex(of: product) else { return }
     }
 }

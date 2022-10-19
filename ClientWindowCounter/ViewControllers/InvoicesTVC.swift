@@ -1,5 +1,5 @@
 //
-//  WindowCountTableViewController.swift
+//  InvoicesTVC.swift
 //  ClientWindowCounter
 //
 //  Created by Matthew Rawlings on 10/7/22.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class WindowCountTableViewController: UITableViewController {
+class InvoicesTVC: UITableViewController {
     
     //MARK: - PROPERTIES
     var client: Client?
@@ -20,7 +20,7 @@ class WindowCountTableViewController: UITableViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         guard let client = client else { return }
-        WindowCountController.shared.filter(for: client)
+        InvoiceController.shared.filter(for: client)
 //        setupView()
         tableView.reloadData()
     }
@@ -34,22 +34,18 @@ class WindowCountTableViewController: UITableViewController {
 
     // MARK: - TABLE VIEW DATA SOURCE
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return WindowCountController.shared.filteredWindowCounts.count
+        return InvoiceController.shared.filteredInvoices.count
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "windowCountCell", for: indexPath)
-        let windowCount = WindowCountController.shared.filteredWindowCounts[indexPath.row]
-        
-        guard let descriptionOfClean = windowCount.countDescription,
-              let totalPrice = windowCount.totalPrice
-        else { return cell }
+        let cell = tableView.dequeueReusableCell(withIdentifier: "invoiceCell", for: indexPath)
+        let invoice = InvoiceController.shared.filteredInvoices[indexPath.row]
         
         var content = cell.defaultContentConfiguration()
         
-        content.text = totalPrice
+        content.text = String(format: "$%.2f", invoice.totalPrice)
         
-        content.secondaryText = "\(descriptionOfClean)"
+        content.secondaryText = invoice.invoiceDescription
         
         cell.contentConfiguration = content
         
@@ -58,8 +54,8 @@ class WindowCountTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            let windowCountToDelete = WindowCountController.shared.filteredWindowCounts[indexPath.row]
-            WindowCountController.shared.deleteWindowCount(windowCount: windowCountToDelete)
+            let invoiceToDelete = InvoiceController.shared.filteredInvoices[indexPath.row]
+            InvoiceController.shared.deleteInvoice(invoice: invoiceToDelete)
             tableView.deleteRows(at: [indexPath], with: .fade)
         }
     }
@@ -96,17 +92,19 @@ class WindowCountTableViewController: UITableViewController {
 
     // MARK: - NAVIGATION
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "toAddPriceVC" {
-            guard let destination = segue.destination as? NewPriceViewController else { return }
+        if segue.identifier == "toNewInvoice" {
+            guard let destination = segue.destination as? InvoiceVC else { return }
             destination.client = self.client
+            destination.isNewInvoice = true
         }
         
-        if segue.identifier == "toEditPricingVC" {
+        if segue.identifier == "toInvoiceDetails" {
             guard let indexPath = tableView.indexPathForSelectedRow,
-                  let destination = segue.destination as? EditPriceViewController else { return }
-            let itemToEdit = WindowCountController.shared.filteredWindowCounts[indexPath.row]
-            destination.editPricing = itemToEdit
+                  let destination = segue.destination as? InvoiceVC else { return }
+            let invoiceToEdit = InvoiceController.shared.filteredInvoices[indexPath.row]
+//            destination.editPricing = itemToEdit
             destination.client = self.client
+            destination.invoice = invoiceToEdit
         }
     }
 

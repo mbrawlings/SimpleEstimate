@@ -1,5 +1,5 @@
 //
-//  ClientsTableViewController.swift
+//  ClientsTVC.swift
 //  ClientWindowCounter
 //
 //  Created by Matthew Rawlings on 10/7/22.
@@ -7,11 +7,10 @@
 
 import UIKit
 
-class ClientsTableViewController: UITableViewController {
+class ClientsTVC: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        print(ClientController.shared.clients[0].name)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -84,12 +83,15 @@ class ClientsTableViewController: UITableViewController {
 
     // MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "toWindowCountVC" {
+        if segue.identifier == "toInvoicesVC" {
             guard let indexPath = tableView.indexPathForSelectedRow,
-                  let destination = segue.destination as? WindowCountTableViewController
+                  let destination = segue.destination as? InvoicesTVC
             else { return }
             let client = ClientController.shared.clients[indexPath.row]
             destination.client = client
+            print("===============")
+            print(client.name)
+            print("===============")
         }
     }
 

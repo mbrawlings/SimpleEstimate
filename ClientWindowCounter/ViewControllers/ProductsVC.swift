@@ -11,6 +11,7 @@ class ProductsVC: UIViewController {
     
     //MARK: PROPERTIES
     var productCells = 0
+    var isUpdating = false
     
     //MARK: - OUTLETS
     @IBOutlet weak var tableView: UITableView!
@@ -34,19 +35,21 @@ class ProductsVC: UIViewController {
     
     
     @IBAction func addProductButtonTapped(_ sender: UIButton) {
-        guard let productName = productTextField.text,
-              !productName.isEmpty,
-              let productPrice = priceTextField.text,
-              !productPrice.isEmpty
-        else { return } // add alert if either is empty
-        if let price = Double(productPrice) {
-            ProductController.shared.createProduct(productName: productName, price: price)
-        } else {
-            // alert that price must be numbers
+        if !isUpdating {
+            guard let productName = productTextField.text,
+                  !productName.isEmpty,
+                  let productPrice = priceTextField.text,
+                  !productPrice.isEmpty
+            else { return } // add alert if either is empty
+            if let price = Double(productPrice) {
+                ProductController.shared.createProduct(productName: productName, price: price)
+            } else {
+                // alert that price must be numbers
+            }
+            productTextField.text = ""
+            priceTextField.text = ""
+            tableView.reloadData()
         }
-        productTextField.text = ""
-        priceTextField.text = ""
-        tableView.reloadData()
     }
     
     

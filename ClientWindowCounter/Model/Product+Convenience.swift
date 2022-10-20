@@ -8,8 +8,9 @@
 import CoreData
 
 extension Product {
-    @discardableResult convenience init(productName: String, price: Double, context: NSManagedObjectContext = CoreDataStack.context) {
+    @discardableResult convenience init(creationDate: Date = Date(), productName: String, price: Double, context: NSManagedObjectContext = CoreDataStack.context) {
         self.init(context: context)
+        self.creationDate = creationDate
         self.productName = productName
         self.price = price
     }

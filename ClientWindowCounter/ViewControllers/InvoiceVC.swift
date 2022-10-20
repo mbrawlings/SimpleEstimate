@@ -7,8 +7,8 @@
 
 import UIKit
 
-struct ProductLineItem {
-    var quantity: Int
+struct ShadowLineItem {
+    var quantity: Int64
     var product: Product
     var invoice: Invoice
 }
@@ -21,6 +21,7 @@ class InvoiceVC: UIViewController {
     var client: Client?
     var product: Product?
     private var lineItems: [LineItem] = []
+    var shadowLineItems: [ShadowLineItem] = []
     
     var discountChosen: Double = 1.0
     
@@ -38,7 +39,9 @@ class InvoiceVC: UIViewController {
         
         title = isNewInvoice ? "New Invoice" : "Invoice Details"
         setupView()
+        createShadowLineItem(lineItems: lineItems)
         tableView.reloadData()
+        
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -47,7 +50,7 @@ class InvoiceVC: UIViewController {
     }
     
     
-    //MARK: - Action
+    //MARK: - ACTION
     @IBAction func discountToggleAdjusted(_ sender: UISegmentedControl) {
         // change the invoice.discount every time toggle is adjusted
         switch sender.selectedSegmentIndex {
@@ -73,9 +76,16 @@ class InvoiceVC: UIViewController {
         else { return }
         invoice.invoiceDescription = productDescription.text
         invoice.totalPrice = calculateTotal()
+        invoice.discount = discountChosen
         if isNewInvoice {
             InvoiceController.shared.save(invoice: invoice)
         } else {
+            // better way to do this?
+            var counter = 0
+            for shadowLineItem in shadowLineItems {
+                lineItems[counter].quantity = shadowLineItem.quantity
+                counter += 1
+            }
             InvoiceController.shared.updateInvoice(invoice: invoice, discount: discountChosen, totalPrice: invoice.totalPrice, invoiceDescription: invoice.invoiceDescription ?? "", client: client!)
         }
         navigationController?.popViewController(animated: true)
@@ -91,18 +101,23 @@ class InvoiceVC: UIViewController {
             self.lineItems = lineItems
         } else if !isNewInvoice {
             guard let lineItemsSet = invoice?.lineItems else { return }
-//            lineItemsSet.sorted(by: { $0. < $1.name })
             guard var lineItems = (lineItemsSet.allObjects as? [LineItem])
-//                .sorted(by: { $0.d, <#LineItem#> in
-//                <#code#>
-//            })
             else { return }
             
+            lineItems.sort { lhs, rhs in
+                guard let lhsDate = lhs.product?.creationDate,
+                      let rhsDate = rhs.product?.creationDate
+                else { return true }
+                
+                return lhsDate < rhsDate
+            }
             
             self.lineItems = lineItems
             guard let invoice else { return }
+            print("Upon entering invoice details \(invoice.discount)")
             // set discountChosen var
             discountChosen = invoice.discount //test
+            print(discountChosen)
             // set where toggle is
             switch Double(invoice.discount) {
             case 1.0:
@@ -125,16 +140,36 @@ class InvoiceVC: UIViewController {
     }
     
     func calculateTotal() -> Double {
-//        guard let discount = invoice?.discount else { return 1.0 }
         var sum = 0.0
-        for lineItem in lineItems {
-            let quantity = Double(lineItem.quantity)
-            let price = (lineItem.product?.price) ?? 0.0
-            sum += quantity * price
+        if isNewInvoice {
+            for lineItem in lineItems {
+                let quantity = Double(lineItem.quantity)
+                let price = (lineItem.product?.price) ?? 0.0
+                sum += quantity * price
+            }
+        } else {
+            for shadowLineItem in shadowLineItems {
+                let quantity = Double(shadowLineItem.quantity)
+//                print("Quantity in VC \(quantity)")
+                let price = (shadowLineItem.product.price)
+//                print(price)
+                sum += quantity * price
+            }
         }
-//        sum = sum * discount
         sum = sum * discountChosen
+//        print(sum)
         return sum
+    }
+    
+    func createShadowLineItem(lineItems: [LineItem]) {
+        for lineItem in lineItems {
+            guard let product = lineItem.product,
+                  let invoice = lineItem.invoice
+            else { return }
+            let lineItemCopy = ShadowLineItem.init(quantity: lineItem.quantity, product: product, invoice: invoice)
+            shadowLineItems.append(lineItemCopy)
+        }
+        
     }
 }
 
@@ -148,11 +183,19 @@ extension InvoiceVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "lineItemCell", for: indexPath) as? InvoiceTableViewCell else { return UITableViewCell() }
         
-        let lineItem = lineItems[indexPath.row]
-        
-        cell.delegate = self
-        
-        cell.updateViews(with: lineItem)
+        if isNewInvoice {
+            let lineItem = lineItems[indexPath.row]
+            
+            cell.delegate = self
+            
+            cell.updateViews(with: lineItem)
+        } else if !isNewInvoice {
+            let lineItem = shadowLineItems[indexPath.row]
+            
+            cell.delegate = self
+            
+            cell.updateViews(with: lineItem)
+        }
         
         return cell
     }
@@ -160,17 +203,16 @@ extension InvoiceVC: UITableViewDelegate, UITableViewDataSource {
 
     //MARK: - INVOICE CELL DELEGATE
 extension InvoiceVC: InvoiceTableViewCellDelegate {
-    func stepperValueChanged() {
-//    func stepperValueChanged(for lineItem: LineItem) {
-//        guard let lineItem = lineItems.firstIndex(of: lineItem)
-//        else { return }
-        
+    func shadowStepperValueChanged(for shadowLineItem: ShadowLineItem) {
+        if let oldShadowLineIndex = shadowLineItems.firstIndex(where: {$0.product.productName == shadowLineItem.product.productName}) {
+            shadowLineItems[oldShadowLineIndex] = shadowLineItem
+        }
         let calculatedPrice = String(format: "$%.2f", calculateTotal())
         totalPriceLabel.text = calculatedPrice
-        
-//        totalPriceLabel.text = "\(calculateTotal())"
-        
     }
     
-    
+    func stepperValueChanged() {
+        let calculatedPrice = String(format: "$%.2f", calculateTotal())
+        totalPriceLabel.text = calculatedPrice
+    }
 }

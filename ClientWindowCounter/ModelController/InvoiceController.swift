@@ -56,13 +56,10 @@ class InvoiceController {
         CoreDataStack.saveContext()
     }
     func updateInvoice(invoice: Invoice, discount: Double, totalPrice: Double, invoiceDescription: String, client: Client) {
-//        deleteInvoice(invoice: invoice)
-//        filteredInvoices.append(invoice)
         invoice.discount = discount
         invoice.totalPrice = totalPrice
         invoice.invoiceDescription = invoiceDescription
         invoice.client = client
         CoreDataStack.saveContext()
     }
-    
 }

@@ -993,6 +993,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="addProductButton" destination="Sq0-DO-blq" id="d2X-1Q-YXW"/>
                         <outlet property="priceTextField" destination="PNB-t1-pB9" id="MPw-aP-rE9"/>
                         <outlet property="productTextField" destination="2Q4-1I-gs9" id="fes-IY-WEp"/>
                         <outlet property="tableView" destination="ccg-lW-hhj" id="diS-EQ-UHB"/>

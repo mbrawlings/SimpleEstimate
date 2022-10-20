@@ -45,7 +45,11 @@ class ProductController {
         fetchProducts()
     }
     
-    func editProduct(product: Product) {
-        guard let index = products.firstIndex(of: product) else { return }
+    func editProduct(product: Product, productName: String, price: Double) {
+        product.productName = productName
+        print(product.productName)
+        product.price = price
+        
+        CoreDataStack.saveContext()
     }
 }

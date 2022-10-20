@@ -9,17 +9,18 @@ import UIKit
 
 class ClientsTVC: UITableViewController {
 
+    //MARK: - LIFECYCLES
     override func viewDidLoad() {
         super.viewDidLoad()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        ClientController.shared.fetchClients()
         tableView.reloadData()
     }
 
-    // MARK: - Table view data source
-
+    // MARK: - TABLE VIEW METHODS
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return ClientController.shared.clients.count
     }
@@ -53,7 +54,7 @@ class ClientsTVC: UITableViewController {
     
     override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let edit = UIContextualAction(style: .normal, title: "Edit") { [weak self] (action, view, completionHandler) in
-            self?.handleEditClient()
+            self?.handleEditClient(indexPath: indexPath)
             completionHandler(true)
         }
         let delete = UIContextualAction(style: .destructive, title: "Delete") { [weak self] (action, view, completionHandler) in
@@ -73,7 +74,10 @@ class ClientsTVC: UITableViewController {
         tableView.deleteRows(at: [indexPath], with: .fade)
     }
     
-    func handleEditClient() {
+    func handleEditClient(indexPath: IndexPath) {
+        let sender = ClientController.shared.clients[indexPath.row]
+        
+        self.performSegue(withIdentifier: "toEditClient", sender: sender)
         
     }
     
@@ -89,11 +93,13 @@ class ClientsTVC: UITableViewController {
             else { return }
             let client = ClientController.shared.clients[indexPath.row]
             destination.client = client
-            print("===============")
-            print(client.name)
-            print("===============")
+        } else if segue.identifier == "toEditClient" {
+            guard let destination = segue.destination as? NewClientVC
+            else { return }
+            let clientToEdit = sender
+            destination.client = clientToEdit as? Client
+            destination.isNewClient = false
         }
+        
     }
-
-
-}
+} // end of class

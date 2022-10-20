@@ -29,16 +29,26 @@ class ClientController {
         CoreDataStack.saveContext()
     }
     func fetchClients() {
-        let clients = (try? CoreDataStack.context.fetch(self.fetchRequest)) ?? []
+        var clients = (try? CoreDataStack.context.fetch(self.fetchRequest)) ?? []
+        clients.sort { lhs, rhs in
+            guard let lhsName = lhs.name,
+                  let rhsName = rhs.name
+            else { return true }
+            return lhsName.lowercased() < rhsName.lowercased()
+        }
         self.clients = clients
     }
-    func updateClient() {
-        
+    func editClient(client: Client, name: String, address: String) {
+        client.name = name
+        client.address = address
+        CoreDataStack.saveContext()
+        fetchClients()
     }
     func deleteClient(client: Client) {
         guard let index = clients.firstIndex(of: client) else { return }
         clients.remove(at: index)
         CoreDataStack.context.delete(client)
         CoreDataStack.saveContext()
+        fetchClients()
     }
 }

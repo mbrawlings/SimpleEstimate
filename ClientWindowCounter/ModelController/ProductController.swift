@@ -47,9 +47,7 @@ class ProductController {
     
     func editProduct(product: Product, productName: String, price: Double) {
         product.productName = productName
-        print(product.productName)
         product.price = price
-        
         CoreDataStack.saveContext()
     }
 }

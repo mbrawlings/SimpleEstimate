@@ -10,7 +10,6 @@ import UIKit
 protocol InvoiceTableViewCellDelegate: AnyObject {
     func shadowStepperValueChanged(for shadowLineItem: ShadowLineItem)
     func stepperValueChanged()
-
 }
 
 class InvoiceTableViewCell: UITableViewCell {
@@ -26,7 +25,6 @@ class InvoiceTableViewCell: UITableViewCell {
     @IBOutlet weak var quantityLabel: UILabel!
     @IBOutlet weak var stepper: UIStepper!
     
-    
     //MARK: - LIFECYCLES
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -37,26 +35,17 @@ class InvoiceTableViewCell: UITableViewCell {
     //MARK: - ACTION
     @IBAction func productStepper(_ sender: UIStepper) {
         if isNewInvoice {
-            // setting stepper value to a constant
             let stepperQuantity = Int64(sender.value)
-            // make that lineItem's quantity be the same value as my stepper
-            //        ProductLineItem.quantity =
             lineItem?.quantity = stepperQuantity
-            // make the label show the same quantity
             quantityLabel.text = "\(stepperQuantity)"
-            // notify my delegate that the quantity changed to it can calculate
-            // the running total at the bottom of the invoice
             delegate?.stepperValueChanged()
         } else {
             guard var shadowLineItem else { return }
             let stepperQuantity = Int64(sender.value)
             shadowLineItem.quantity = stepperQuantity
             quantityLabel.text = "\(stepperQuantity)"
-            print(shadowLineItem.quantity)
             delegate?.shadowStepperValueChanged(for: shadowLineItem)
         }
-        //        guard let lineItem else { return }
-        //        delegate?.stepperValueChanged(for: lineItem)
     }
     
     //MARK: - HELPER METHODS
@@ -74,5 +63,4 @@ class InvoiceTableViewCell: UITableViewCell {
         stepper.value = Double(lineItem.quantity)
         self.shadowLineItem = lineItem
     }
-
 }

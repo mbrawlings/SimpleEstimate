@@ -37,19 +37,34 @@ class NewClientVC: UIViewController {
             alert.addAction(UIAlertAction(title: "Got it!", style: .default))
             present(alert, animated: true)
             return }
+        guard let phoneNumberString = phoneTextField.text else { return }
+        var phoneNumber: Int64 = 0
+        if !phoneNumberString.isEmpty {
+            guard let phoneNumberInt = Int64(phoneNumberString),
+                  phoneNumberString.count == 10
+            else {
+                print(phoneNumberString)
+                let alert = UIAlertController(title: "Error", message: "Must be 10 digits only", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "Got it!", style: .default))
+                present(alert, animated: true)
+                return }
+            phoneNumber = phoneNumberInt
+        }
         if isNewClient {
-            ClientController.shared.createClient(name: name, address: address)
+            ClientController.shared.createClient(name: name, address: address, phoneNumber: phoneNumber)
         } else if !isNewClient {
             guard let client else { return }
-            ClientController.shared.editClient(client: client, name: name, address: address)
+            ClientController.shared.editClient(client: client, name: name, address: address, phoneNumber: phoneNumber)
         }
         navigationController?.popViewController(animated: true)
     }
     
     //MARK: - HELPER METHODS
     func setupView() {
-        nameTextField.text = client?.name
-        addressTextField.text = client?.address
+        guard let client else { return }
+        nameTextField.text = client.name
+        addressTextField.text = client.address
+        phoneTextField.text = client.phoneNumber == 0 ? "" : "\(client.phoneNumber)"
     }
 
     /*

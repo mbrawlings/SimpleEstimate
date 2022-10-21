@@ -36,25 +36,18 @@ class InvoiceVC: UIViewController {
         super.viewDidLoad()
         tableView.delegate = self
         tableView.dataSource = self
-        
         title = isNewInvoice ? "New Invoice" : "Invoice Details"
         setupView()
         createShadowLineItem(lineItems: lineItems)
         tableView.reloadData()
-        
     }
-    
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-        
     }
-    
     
     //MARK: - ACTION
     @IBAction func discountToggleAdjusted(_ sender: UISegmentedControl) {
-        // change the invoice.discount every time toggle is adjusted
         switch sender.selectedSegmentIndex {
-            //only set var to adjust var
         case 0:
             discountChosen = 1.0
         case 1:
@@ -66,7 +59,6 @@ class InvoiceVC: UIViewController {
         default:
             discountChosen = 1.0
         }
-        // update totalPriceLabel
         let calculatedPrice = String(format: "$%.2f", calculateTotal())
         totalPriceLabel.text = calculatedPrice
     }
@@ -80,11 +72,8 @@ class InvoiceVC: UIViewController {
         if isNewInvoice {
             InvoiceController.shared.save(invoice: invoice)
         } else {
-            // better way to do this?
-            var counter = 0
-            for shadowLineItem in shadowLineItems {
-                lineItems[counter].quantity = shadowLineItem.quantity
-                counter += 1
+            for (index, shadowLineItem) in shadowLineItems.enumerated() {
+                lineItems[index].quantity = shadowLineItem.quantity
             }
             InvoiceController.shared.updateInvoice(invoice: invoice, discount: discountChosen, totalPrice: invoice.totalPrice, invoiceDescription: invoice.invoiceDescription ?? "", client: client!)
         }
@@ -114,11 +103,8 @@ class InvoiceVC: UIViewController {
             
             self.lineItems = lineItems
             guard let invoice else { return }
-            print("Upon entering invoice details \(invoice.discount)")
-            // set discountChosen var
+
             discountChosen = invoice.discount //test
-            print(discountChosen)
-            // set where toggle is
             switch Double(invoice.discount) {
             case 1.0:
                 discountSegmentControl.selectedSegmentIndex = 0
@@ -131,9 +117,7 @@ class InvoiceVC: UIViewController {
             default:
                 discountSegmentControl.selectedSegmentIndex = 0
             }
-            // set description
             self.productDescription.text = invoice.invoiceDescription
-            // set total price
             self.totalPriceLabel.text = String(format: "$%.2f", invoice.totalPrice)
         }
         tableView.reloadData()
@@ -150,14 +134,11 @@ class InvoiceVC: UIViewController {
         } else {
             for shadowLineItem in shadowLineItems {
                 let quantity = Double(shadowLineItem.quantity)
-//                print("Quantity in VC \(quantity)")
                 let price = (shadowLineItem.product.price)
-//                print(price)
                 sum += quantity * price
             }
         }
         sum = sum * discountChosen
-//        print(sum)
         return sum
     }
     
@@ -176,7 +157,6 @@ class InvoiceVC: UIViewController {
     //MARK: - TABLEVIEW METHODS
 extension InvoiceVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        ProductController.shared.products.count
         lineItems.count
     }
     
@@ -191,7 +171,7 @@ extension InvoiceVC: UITableViewDelegate, UITableViewDataSource {
             cell.updateViews(with: lineItem)
         } else if !isNewInvoice {
             let lineItem = shadowLineItems[indexPath.row]
-            
+
             cell.delegate = self
             
             cell.updateViews(with: lineItem)

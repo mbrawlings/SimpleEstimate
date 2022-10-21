@@ -3,6 +3,7 @@
     <entity name="Client" representedClassName="Client" syncable="YES" codeGenerationType="class">
         <attribute name="address" optional="YES" attributeType="String"/>
         <attribute name="name" optional="YES" attributeType="String"/>
+        <attribute name="phoneNumber" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <relationship name="invoice" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Invoice" inverseName="client" inverseEntity="Invoice"/>
     </entity>
     <entity name="Invoice" representedClassName="Invoice" syncable="YES" codeGenerationType="class">

@@ -11,7 +11,6 @@ class InvoicesTVC: UITableViewController {
     
     //MARK: - PROPERTIES
     var client: Client?
-//    var filteredWindowCounts: [WindowCount] = []
 
     //MARK: - LIFECYCLES
     override func viewDidLoad() {
@@ -21,16 +20,8 @@ class InvoicesTVC: UITableViewController {
         super.viewWillAppear(true)
         guard let client = client else { return }
         InvoiceController.shared.filter(for: client)
-//        setupView()
         tableView.reloadData()
     }
-    
-    //MARK: - HELPER METHODS
-//    func setupView() {
-//        filteredWindowCounts = WindowCountController.shared.windowCounts.filter { eachWindowCount in
-//            eachWindowCount.client == self.client
-//        }
-//    }
 
     // MARK: - TABLE VIEW DATA SOURCE
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -64,32 +55,6 @@ class InvoicesTVC: UITableViewController {
         80
     }
 
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
-    }
-    */
-
-
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
-
     // MARK: - NAVIGATION
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "toNewInvoice" {
@@ -97,12 +62,10 @@ class InvoicesTVC: UITableViewController {
             destination.client = self.client
             destination.isNewInvoice = true
         }
-        
         if segue.identifier == "toInvoiceDetails" {
             guard let indexPath = tableView.indexPathForSelectedRow,
                   let destination = segue.destination as? InvoiceVC else { return }
             let invoiceToEdit = InvoiceController.shared.filteredInvoices[indexPath.row]
-//            destination.editPricing = itemToEdit
             destination.client = self.client
             destination.invoice = invoiceToEdit
         }

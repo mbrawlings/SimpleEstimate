@@ -32,8 +32,13 @@ class ProductController {
     }
     
     func fetchProducts() {
-        let products = (try? CoreDataStack.context.fetch(self.fetchRequest)) ?? []
-
+        var products = (try? CoreDataStack.context.fetch(self.fetchRequest)) ?? []
+        products.sort(by: { lhs, rhs in
+            guard let lhsDate = lhs.creationDate,
+                  let rhsDate = rhs.creationDate
+            else { return true }
+            return lhsDate < rhsDate
+        })
         self.products = products
     }
     

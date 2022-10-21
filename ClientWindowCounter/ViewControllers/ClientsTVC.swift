@@ -33,14 +33,22 @@ class ClientsTVC: UITableViewController {
         var content = cell.defaultContentConfiguration()
         
         content.text = client.name
-        
-        content.secondaryText = client.address
-        
+        if let address = client.address {
+            if address == "" && client.phoneNumber == 0 {
+                content.secondaryText = "-\n-"
+            } else if address == "" && client.phoneNumber != 0 {
+                content.secondaryText = "-\n\(client.phoneNumber)"
+            } else if address != "" && client.phoneNumber == 0 {
+                content.secondaryText = "\(address)\n-"
+            } else {
+                content.secondaryText = "\(address)\n\(client.phoneNumber)"
+            }
+        }
         content.image = UIImage(systemName: "person.fill")
         content.imageProperties.maximumSize = CGSize(width: 50, height: 50)
         
         cell.contentConfiguration = content
-
+            
         return cell
     }
     

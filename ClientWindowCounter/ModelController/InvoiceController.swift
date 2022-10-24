@@ -29,6 +29,12 @@ class InvoiceController {
         filteredInvoices = invoices.filter { eachInvoice in
             eachInvoice.client == client && (eachInvoice.totalPrice != 0.0 || eachInvoice.invoiceDescription != "")
         }
+        filteredInvoices.sort { lhsInvoice, rhsInvioce in
+            guard let lhsDate = lhsInvoice.creationDate,
+                  let rhsDate = rhsInvioce.creationDate
+            else { return true }
+            return lhsDate < rhsDate
+        }
     }
     
     //CRUD

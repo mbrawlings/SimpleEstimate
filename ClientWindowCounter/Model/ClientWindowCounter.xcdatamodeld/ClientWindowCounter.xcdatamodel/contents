@@ -7,6 +7,7 @@
         <relationship name="invoice" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Invoice" inverseName="client" inverseEntity="Invoice"/>
     </entity>
     <entity name="Invoice" representedClassName="Invoice" syncable="YES" codeGenerationType="class">
+        <attribute name="creationDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="discount" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="invoiceDescription" optional="YES" attributeType="String"/>
         <attribute name="totalPrice" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>

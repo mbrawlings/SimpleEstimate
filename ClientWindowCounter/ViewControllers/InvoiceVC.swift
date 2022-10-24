@@ -41,9 +41,6 @@ class InvoiceVC: UIViewController {
         createShadowLineItem(lineItems: lineItems)
         tableView.reloadData()
     }
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-    }
     
     //MARK: - ACTION
     @IBAction func discountToggleAdjusted(_ sender: UISegmentedControl) {
@@ -70,7 +67,13 @@ class InvoiceVC: UIViewController {
         invoice.totalPrice = calculateTotal()
         invoice.discount = discountChosen
         if isNewInvoice {
-            InvoiceController.shared.save(invoice: invoice)
+            if invoice.invoiceDescription == "" && invoice.totalPrice == 0.0 {
+                let alert = UIAlertController(title: "Error", message: "An invoice requires either a description or a total price", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "Got it!", style: .default))
+                present(alert, animated: true)
+            } else {
+                InvoiceController.shared.save(invoice: invoice)
+            }
         } else {
             for (index, shadowLineItem) in shadowLineItems.enumerated() {
                 lineItems[index].quantity = shadowLineItem.quantity
@@ -79,6 +82,12 @@ class InvoiceVC: UIViewController {
         }
         navigationController?.popViewController(animated: true)
     }
+    
+    @IBAction func tapGestureTapped(_ sender: UITapGestureRecognizer) {
+        productDescription.resignFirstResponder()
+    }
+    
+    
     
     //MARK: - HELPER METHODS
     private func setupView() {
@@ -194,5 +203,12 @@ extension InvoiceVC: InvoiceTableViewCellDelegate {
     func stepperValueChanged() {
         let calculatedPrice = String(format: "$%.2f", calculateTotal())
         totalPriceLabel.text = calculatedPrice
+    }
+}
+
+extension InvoiceVC: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        productDescription.resignFirstResponder()
+        return true
     }
 }

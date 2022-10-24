@@ -16,8 +16,10 @@ class InvoicesTVC: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
     }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
+        InvoiceController.shared.fetchInvoices()
         guard let client = client else { return }
         InvoiceController.shared.filter(for: client)
         tableView.reloadData()

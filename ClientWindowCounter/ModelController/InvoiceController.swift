@@ -27,7 +27,7 @@ class InvoiceController {
 
     func filter(for client: Client) {
         filteredInvoices = invoices.filter { eachInvoice in
-            eachInvoice.client == client
+            eachInvoice.client == client && (eachInvoice.totalPrice != 0.0 || eachInvoice.invoiceDescription != "")
         }
     }
     

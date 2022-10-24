@@ -33,6 +33,11 @@ class ProductsVC: UIViewController {
         navigationController?.popViewController(animated: true)
     }
     
+    @IBAction func tapGestureTapped(_ sender: UITapGestureRecognizer) {
+        productTextField.resignFirstResponder()
+        priceTextField.resignFirstResponder()
+    }
+    
     @IBAction func addProductButtonTapped(_ sender: UIButton) {
         guard let productName = productTextField.text,
               !productName.isEmpty,
@@ -66,6 +71,7 @@ class ProductsVC: UIViewController {
         addProductButton.setImage(UIImage(systemName: "plus"), for: .normal)
         productTextField.text = ""
         priceTextField.text = ""
+        priceTextField.resignFirstResponder()
         tableView.reloadData()
     }
     
@@ -132,3 +138,10 @@ extension ProductsVC: UITableViewDelegate, UITableViewDataSource {
     }
 } // end of class
 
+extension ProductsVC: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        productTextField.resignFirstResponder()
+        priceTextField.resignFirstResponder()
+        return true
+    }
+}

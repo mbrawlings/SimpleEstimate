@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="21279" systemVersion="21G115" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="Client" representedClassName="Client" syncable="YES" codeGenerationType="class">
-        <attribute name="address" optional="YES" attributeType="String"/>
+        <attribute name="cityAddress" optional="YES" attributeType="String"/>
         <attribute name="name" optional="YES" attributeType="String"/>
         <attribute name="phoneNumber" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="stateAddress" optional="YES" attributeType="String"/>
+        <attribute name="streetAddress" optional="YES" attributeType="String"/>
         <relationship name="invoice" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Invoice" inverseName="client" inverseEntity="Invoice"/>
     </entity>
     <entity name="Invoice" representedClassName="Invoice" syncable="YES" codeGenerationType="class">

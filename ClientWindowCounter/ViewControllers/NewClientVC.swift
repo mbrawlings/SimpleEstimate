@@ -12,13 +12,11 @@ class NewClientVC: UIViewController {
     //MARK: - PROPERTIES
     var client: Client?
     var isNewClient = true
-    var addressArr: [String] = []
-    var addressString = ""
     
     //MARK: - OUTLETS
     @IBOutlet weak var nameTextField: UITextField!
     
-    @IBOutlet weak var addressTextField: UITextField!
+    @IBOutlet weak var streetTextField: UITextField!
     @IBOutlet weak var cityTextField: UITextField!
     @IBOutlet weak var stateTextField: UITextField!
     
@@ -36,13 +34,10 @@ class NewClientVC: UIViewController {
     
     //MARK: - ACTION
     @IBAction func doneButtonTapped(_ sender: UIBarButtonItem) {
-        guard let address = addressTextField.text,
+        guard let street = streetTextField.text,
               let city = cityTextField.text,
-              let state = cityTextField.text
+              let state = stateTextField.text
         else { return }
-        addressArr.append(address)
-        addressArr.append(city)
-        addressArr.append(state)
         guard let name = nameTextField.text,
               !name.isEmpty
 //                ,
@@ -66,10 +61,10 @@ class NewClientVC: UIViewController {
             phoneNumber = phoneNumberInt
         }
         if isNewClient {
-            ClientController.shared.createClient(name: name, address: addressString, phoneNumber: phoneNumber)
+            ClientController.shared.createClient(name: name, streetAddress: street, cityAddress: city, stateAddress: state, phoneNumber: phoneNumber)
         } else if !isNewClient {
             guard let client else { return }
-            ClientController.shared.editClient(client: client, name: name, address: addressString, phoneNumber: phoneNumber)
+            ClientController.shared.editClient(client: client, name: name, streetAddress: street, cityAddress: city, stateAddress: state, phoneNumber: phoneNumber)
         }
         navigationController?.popViewController(animated: true)
     }
@@ -81,9 +76,9 @@ class NewClientVC: UIViewController {
         nameTextField.layer.cornerRadius = 10.0
         nameTextField.layer.masksToBounds = true
         
-        addressTextField.layer.borderWidth = 0.5
-        addressTextField.layer.cornerRadius = 10.0
-        addressTextField.layer.masksToBounds = true
+        streetTextField.layer.borderWidth = 0.5
+        streetTextField.layer.cornerRadius = 10.0
+        streetTextField.layer.masksToBounds = true
         
         cityTextField.layer.borderWidth = 0.5
         cityTextField.layer.cornerRadius = 10.0
@@ -102,7 +97,9 @@ class NewClientVC: UIViewController {
     func viewsToEditClient() {
         guard let client else { return }
         nameTextField.text = client.name
-        addressTextField.text = client.address
+        streetTextField.text = client.streetAddress
+        cityTextField.text = client.cityAddress
+        stateTextField.text = client.stateAddress
         phoneTextField.text = client.phoneNumber == 0 ? "" : "\(client.phoneNumber)"
     }
 

@@ -37,15 +37,17 @@ class ClientsTVC: UITableViewController {
         var content = cell.defaultContentConfiguration()
         
         content.text = client.name
-        if let address = client.address {
-            if address == "" && client.phoneNumber == 0 {
+        if let street = client.streetAddress,
+           let city = client.cityAddress,
+           let state = client.stateAddress {
+            if street == "" && city == "" && state == "" && client.phoneNumber == 0 {
                 content.secondaryText = "-\n-"
-            } else if address == "" && client.phoneNumber != 0 {
+            } else if street == "" && city == "" && state == "" && client.phoneNumber != 0 {
                 content.secondaryText = "-\n"+"\(client.phoneNumber)".applyPatternOnNumbers()
-            } else if address != "" && client.phoneNumber == 0 {
-                content.secondaryText = "\(address)\n-"
+            } else if client.phoneNumber == 0 {
+                content.secondaryText = "\(street) \(city) \(state)\n-"
             } else {
-                content.secondaryText = "\(address)\n"+"\(client.phoneNumber)".applyPatternOnNumbers()
+                content.secondaryText = "\(street) \(city) \(state)\n"+"\(client.phoneNumber)".applyPatternOnNumbers()
             }
         }
         content.image = UIImage(systemName: "person.fill")
@@ -66,7 +68,7 @@ class ClientsTVC: UITableViewController {
             self?.handleDeleteClient(indexPath: indexPath)
             completionHandler(true)
         }
-        edit.image = UIImage(systemName: "pencil.line")
+        edit.image = UIImage(systemName: "pencil")
         edit.backgroundColor = .systemYellow
         delete.image = UIImage(systemName: "trash")
         delete.backgroundColor = .systemRed
@@ -133,9 +135,11 @@ class ClientsTVC: UITableViewController {
     }
     
     func handleMapClient(indexPath: IndexPath) {
-        if let address = ClientController.shared.clients[indexPath.row].address {
+        if let street = ClientController.shared.clients[indexPath.row].streetAddress,
+           let city = ClientController.shared.clients[indexPath.row].cityAddress,
+           let state = ClientController.shared.clients[indexPath.row].stateAddress {
             let geoCoder = CLGeocoder()
-            geoCoder.geocodeAddressString(address) { (placemarks, error) in
+            geoCoder.geocodeAddressString("\(street) \(city) \(state)") { (placemarks, error) in
                 if let placemarks = placemarks?.first {
                     let location = placemarks.location?.coordinate ?? CLLocationCoordinate2D()
                     guard let url = URL(string:"http://maps.apple.com/?daddr=\(location.latitude),\(location.longitude)") else { return }

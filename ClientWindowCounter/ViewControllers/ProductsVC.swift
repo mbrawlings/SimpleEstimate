@@ -120,7 +120,7 @@ extension ProductsVC: UITableViewDelegate, UITableViewDataSource {
             self?.handleDeleteProduct(indexPath: indexPath)
             completionHandler(true)
         }
-        edit.image = UIImage(systemName: "pencil.line")
+        edit.image = UIImage(systemName: "pencil")
         edit.backgroundColor = .systemYellow
         delete.image = UIImage(systemName: "trash")
         delete.backgroundColor = .systemRed

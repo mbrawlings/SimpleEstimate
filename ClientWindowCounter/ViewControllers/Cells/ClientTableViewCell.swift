@@ -39,11 +39,13 @@ class ClientTableViewCell: UITableViewCell {
     func setupView() {
         guard let client = client else { return }
         nameLabel.text = client.name
-        if let address = client.address {
-            if address == "" {
+        if let street = client.streetAddress,
+           let city = client.cityAddress,
+           let state = client.stateAddress {
+            if street == "" && city == "" && state == "" {
                 addressLabel.text = "-"
             } else {
-                addressLabel.text = address
+                addressLabel.text = "\(street) \(city) \(state)"
             }
             if client.phoneNumber == 0 {
                 phoneLabel.text = "-"

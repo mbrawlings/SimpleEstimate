@@ -23,8 +23,8 @@ class ClientController {
     }()
     
     //CRUD
-    func createClient(name: String, address: String, phoneNumber: Int64) {
-        let newClient = Client(name: name, address: address, phoneNumber: phoneNumber)
+    func createClient(name: String, streetAddress: String, cityAddress: String, stateAddress: String, phoneNumber: Int64) {
+        let newClient = Client(name: name, streetAddress: streetAddress, cityAddress: cityAddress, stateAddress: stateAddress, phoneNumber: phoneNumber)
         clients.append(newClient)
         CoreDataStack.saveContext()
     }
@@ -38,9 +38,11 @@ class ClientController {
         }
         self.clients = clients
     }
-    func editClient(client: Client, name: String, address: String, phoneNumber: Int64) {
+    func editClient(client: Client, name: String, streetAddress: String, cityAddress: String, stateAddress: String, phoneNumber: Int64) {
         client.name = name
-        client.address = address
+        client.streetAddress = streetAddress
+        client.cityAddress = cityAddress
+        client.stateAddress = stateAddress
         client.phoneNumber = phoneNumber
         CoreDataStack.saveContext()
         fetchClients()

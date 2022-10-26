@@ -99,11 +99,11 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="addressTextField" destination="MWq-Y6-3oL" id="kcq-Rh-2uL"/>
                         <outlet property="cityTextField" destination="cHb-ye-mXD" id="WmO-Ib-5V5"/>
                         <outlet property="nameTextField" destination="PIu-Hz-4uK" id="a2H-XB-XXz"/>
                         <outlet property="phoneTextField" destination="vmt-XK-O2X" id="MjV-jg-A1k"/>
                         <outlet property="stateTextField" destination="m8F-kl-0IA" id="G58-1Z-875"/>
+                        <outlet property="streetTextField" destination="MWq-Y6-3oL" id="kcq-Rh-2uL"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vsw-K4-gJ3" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

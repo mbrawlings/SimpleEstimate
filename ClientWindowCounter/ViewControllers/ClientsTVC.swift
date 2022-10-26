@@ -33,9 +33,8 @@ class ClientsTVC: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "clientCell", for: indexPath)
 
         let client = ClientController.shared.clients[indexPath.row]
-        
+
         var content = cell.defaultContentConfiguration()
-        
         
         content.text = client.name
         if let address = client.address {
@@ -51,7 +50,7 @@ class ClientsTVC: UITableViewController {
         }
         content.image = UIImage(systemName: "person.fill")
         content.imageProperties.maximumSize = CGSize(width: 50, height: 50)
-        
+
         cell.contentConfiguration = content
             
         return cell

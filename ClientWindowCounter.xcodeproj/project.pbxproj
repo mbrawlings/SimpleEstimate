@@ -28,6 +28,7 @@
 		0EC682BD28FF1413008F6884 /* InvoiceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EC682BC28FF1413008F6884 /* InvoiceController.swift */; };
 		0EC682C528FF4449008F6884 /* InvoiceTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EC682C428FF4449008F6884 /* InvoiceTableViewCell.swift */; };
 		0EC682C728FF5823008F6884 /* LineItem+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EC682C628FF5823008F6884 /* LineItem+Convenience.swift */; };
+		0ECE09E52909D8E200DDBE6A /* ClientTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ECE09E42909D8E200DDBE6A /* ClientTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -54,6 +55,7 @@
 		0EC682BC28FF1413008F6884 /* InvoiceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvoiceController.swift; sourceTree = "<group>"; };
 		0EC682C428FF4449008F6884 /* InvoiceTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvoiceTableViewCell.swift; sourceTree = "<group>"; };
 		0EC682C628FF5823008F6884 /* LineItem+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LineItem+Convenience.swift"; sourceTree = "<group>"; };
+		0ECE09E42909D8E200DDBE6A /* ClientTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -164,6 +166,7 @@
 			isa = PBXGroup;
 			children = (
 				0EC682C428FF4449008F6884 /* InvoiceTableViewCell.swift */,
+				0ECE09E42909D8E200DDBE6A /* ClientTableViewCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -247,6 +250,7 @@
 				0E2B34B328F0D978004507FC /* InvoiceVC.swift in Sources */,
 				0EC682B728FE1535008F6884 /* Product+Convenience.swift in Sources */,
 				0E2B349128F0BCFF004507FC /* ClientWindowCounter.xcdatamodeld in Sources */,
+				0ECE09E52909D8E200DDBE6A /* ClientTableViewCell.swift in Sources */,
 				0EC682B928FE181D008F6884 /* ProductController.swift in Sources */,
 				0EC682BB28FF1376008F6884 /* Invoice+Convenience.swift in Sources */,
 				0E2B34AD28F0D5DD004507FC /* ClientsTVC.swift in Sources */,

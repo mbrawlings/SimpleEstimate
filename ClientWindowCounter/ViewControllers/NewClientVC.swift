@@ -12,6 +12,8 @@ class NewClientVC: UIViewController {
     //MARK: - PROPERTIES
     var client: Client?
     var isNewClient = true
+    var addressArr: [String] = []
+    var addressString = ""
     
     //MARK: - OUTLETS
     @IBOutlet weak var nameTextField: UITextField!
@@ -34,9 +36,17 @@ class NewClientVC: UIViewController {
     
     //MARK: - ACTION
     @IBAction func doneButtonTapped(_ sender: UIBarButtonItem) {
+        guard let address = addressTextField.text,
+              let city = cityTextField.text,
+              let state = cityTextField.text
+        else { return }
+        addressArr.append(address)
+        addressArr.append(city)
+        addressArr.append(state)
         guard let name = nameTextField.text,
-              !name.isEmpty,
-              let address = addressTextField.text
+              !name.isEmpty
+//                ,
+//              let address = addressTextField.text
         else {
             let alert = UIAlertController(title: "Error", message: "Must enter a client name", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "Got it!", style: .default))
@@ -56,10 +66,10 @@ class NewClientVC: UIViewController {
             phoneNumber = phoneNumberInt
         }
         if isNewClient {
-            ClientController.shared.createClient(name: name, address: address, phoneNumber: phoneNumber)
+            ClientController.shared.createClient(name: name, address: addressString, phoneNumber: phoneNumber)
         } else if !isNewClient {
             guard let client else { return }
-            ClientController.shared.editClient(client: client, name: name, address: address, phoneNumber: phoneNumber)
+            ClientController.shared.editClient(client: client, name: name, address: addressString, phoneNumber: phoneNumber)
         }
         navigationController?.popViewController(animated: true)
     }

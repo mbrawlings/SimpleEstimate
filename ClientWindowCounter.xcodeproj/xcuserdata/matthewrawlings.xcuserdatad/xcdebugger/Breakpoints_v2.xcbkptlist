@@ -694,10 +694,290 @@
             filePath = "ClientWindowCounter/ViewControllers/ClientsTVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "140"
-            endingLineNumber = "140"
+            startingLineNumber = "139"
+            endingLineNumber = "139"
             landmarkName = "handleMapClient(indexPath:)"
             landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "8225061E-DBCD-417D-87AF-A85E02577544"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ClientWindowCounter/ViewControllers/Cells/ClientTableViewCell.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "30"
+            endingLineNumber = "30"
+            landmarkName = "awakeFromNib()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "B012663A-CB4F-405F-9B68-F3DA4471AE62"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ClientWindowCounter/ViewControllers/Cells/ClientTableViewCell.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "43"
+            endingLineNumber = "43"
+            landmarkName = "setupView()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "91AB3E61-A478-4F70-B7F6-1677AB8ADCD3"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ClientWindowCounter/ViewControllers/Cells/ClientTableViewCell.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "40"
+            endingLineNumber = "40"
+            landmarkName = "setupView()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "8AF02B5D-0279-46E4-B1D7-8CDA4F0B4597"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ClientWindowCounter/ViewControllers/Cells/ClientTableViewCell.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "39"
+            endingLineNumber = "39"
+            landmarkName = "setupView()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "9ECEBAD4-58BC-421B-A78D-2A75B9A06F67"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ClientWindowCounter/ViewControllers/Cells/ClientTableViewCell.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "14"
+            endingLineNumber = "14"
+            landmarkName = "client"
+            landmarkType = "24">
+            <Locations>
+               <Location
+                  uuid = "9ECEBAD4-58BC-421B-A78D-2A75B9A06F67 - d1f05016071163"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ClientWindowCounter.ClientTableViewCell.client.getter : Swift.Optional&lt;ClientWindowCounter.Client&gt;"
+                  moduleName = "ClientWindowCounter"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/matthewrawlings/Desktop/PersonalProjects/ClientWindowCounter/ClientWindowCounter/ViewControllers/Cells/ClientTableViewCell.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "13"
+                  endingLineNumber = "13"
+                  offsetFromSymbolStart = "94">
+               </Location>
+               <Location
+                  uuid = "9ECEBAD4-58BC-421B-A78D-2A75B9A06F67 - 87436fd7c3da92a7"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ClientWindowCounter.ClientTableViewCell.client.setter : Swift.Optional&lt;ClientWindowCounter.Client&gt;"
+                  moduleName = "ClientWindowCounter"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/matthewrawlings/Desktop/PersonalProjects/ClientWindowCounter/ClientWindowCounter/ViewControllers/Cells/ClientTableViewCell.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "13"
+                  endingLineNumber = "13"
+                  offsetFromSymbolStart = "132">
+               </Location>
+               <Location
+                  uuid = "9ECEBAD4-58BC-421B-A78D-2A75B9A06F67 - 8c87e1b2a6ab8612"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ClientWindowCounter.ClientTableViewCell.client.modify : Swift.Optional&lt;ClientWindowCounter.Client&gt;"
+                  moduleName = "ClientWindowCounter"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/matthewrawlings/Desktop/PersonalProjects/ClientWindowCounter/ClientWindowCounter/ViewControllers/Cells/ClientTableViewCell.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "13"
+                  endingLineNumber = "13"
+                  offsetFromSymbolStart = "0">
+               </Location>
+               <Location
+                  uuid = "9ECEBAD4-58BC-421B-A78D-2A75B9A06F67 - 833f9dff96340746"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ClientWindowCounter.ClientTableViewCell.client.modify : Swift.Optional&lt;ClientWindowCounter.Client&gt; with unmangled suffix &quot;.resume.0&quot;"
+                  moduleName = "ClientWindowCounter"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/matthewrawlings/Desktop/PersonalProjects/ClientWindowCounter/ClientWindowCounter/ViewControllers/Cells/ClientTableViewCell.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "13"
+                  endingLineNumber = "13"
+                  offsetFromSymbolStart = "15">
+               </Location>
+               <Location
+                  uuid = "9ECEBAD4-58BC-421B-A78D-2A75B9A06F67 - bf2869b886fef29c"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ClientWindowCounter.ClientTableViewCell.init(style: __C.UITableViewCellStyle, reuseIdentifier: Swift.Optional&lt;Swift.String&gt;) -&gt; ClientWindowCounter.ClientTableViewCell"
+                  moduleName = "ClientWindowCounter"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/matthewrawlings/Desktop/PersonalProjects/ClientWindowCounter/ClientWindowCounter/ViewControllers/Cells/ClientTableViewCell.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "13"
+                  endingLineNumber = "13"
+                  offsetFromSymbolStart = "167">
+               </Location>
+               <Location
+                  uuid = "9ECEBAD4-58BC-421B-A78D-2A75B9A06F67 - 13e5d7ea0330e764"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ClientWindowCounter.ClientTableViewCell.init(coder: __C.NSCoder) -&gt; Swift.Optional&lt;ClientWindowCounter.ClientTableViewCell&gt;"
+                  moduleName = "ClientWindowCounter"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/matthewrawlings/Desktop/PersonalProjects/ClientWindowCounter/ClientWindowCounter/ViewControllers/Cells/ClientTableViewCell.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "13"
+                  endingLineNumber = "13"
+                  offsetFromSymbolStart = "124">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "F258F9C0-665E-4DD6-A9EE-BB9996A9260F"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ClientWindowCounter/ViewControllers/Cells/TestTableViewCell.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "12"
+            endingLineNumber = "12"
+            landmarkName = "client"
+            landmarkType = "24">
+            <Locations>
+               <Location
+                  uuid = "F258F9C0-665E-4DD6-A9EE-BB9996A9260F - 7274ec692ec6e4e6"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ClientWindowCounter.TestTableViewCell.client.getter : Swift.Optional&lt;ClientWindowCounter.Client&gt;"
+                  moduleName = "ClientWindowCounter"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/matthewrawlings/Desktop/PersonalProjects/ClientWindowCounter/ClientWindowCounter/ViewControllers/Cells/TestTableViewCell.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "12"
+                  endingLineNumber = "12"
+                  offsetFromSymbolStart = "94">
+               </Location>
+               <Location
+                  uuid = "F258F9C0-665E-4DD6-A9EE-BB9996A9260F - a73a411f31a334ce"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ClientWindowCounter.TestTableViewCell.client.setter : Swift.Optional&lt;ClientWindowCounter.Client&gt;"
+                  moduleName = "ClientWindowCounter"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/matthewrawlings/Desktop/PersonalProjects/ClientWindowCounter/ClientWindowCounter/ViewControllers/Cells/TestTableViewCell.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "12"
+                  endingLineNumber = "12"
+                  offsetFromSymbolStart = "132">
+               </Location>
+               <Location
+                  uuid = "F258F9C0-665E-4DD6-A9EE-BB9996A9260F - b96a58ebf965f0e0"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ClientWindowCounter.TestTableViewCell.client.modify : Swift.Optional&lt;ClientWindowCounter.Client&gt;"
+                  moduleName = "ClientWindowCounter"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/matthewrawlings/Desktop/PersonalProjects/ClientWindowCounter/ClientWindowCounter/ViewControllers/Cells/TestTableViewCell.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "12"
+                  endingLineNumber = "12"
+                  offsetFromSymbolStart = "0">
+               </Location>
+               <Location
+                  uuid = "F258F9C0-665E-4DD6-A9EE-BB9996A9260F - fbe9012dbc09dc46"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ClientWindowCounter.TestTableViewCell.client.modify : Swift.Optional&lt;ClientWindowCounter.Client&gt; with unmangled suffix &quot;.resume.0&quot;"
+                  moduleName = "ClientWindowCounter"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/matthewrawlings/Desktop/PersonalProjects/ClientWindowCounter/ClientWindowCounter/ViewControllers/Cells/TestTableViewCell.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "12"
+                  endingLineNumber = "12"
+                  offsetFromSymbolStart = "15">
+               </Location>
+               <Location
+                  uuid = "F258F9C0-665E-4DD6-A9EE-BB9996A9260F - 82842f8cbf3fe0e0"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ClientWindowCounter.TestTableViewCell.init(style: __C.UITableViewCellStyle, reuseIdentifier: Swift.Optional&lt;Swift.String&gt;) -&gt; ClientWindowCounter.TestTableViewCell"
+                  moduleName = "ClientWindowCounter"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/matthewrawlings/Desktop/PersonalProjects/ClientWindowCounter/ClientWindowCounter/ViewControllers/Cells/TestTableViewCell.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "12"
+                  endingLineNumber = "12"
+                  offsetFromSymbolStart = "167">
+               </Location>
+               <Location
+                  uuid = "F258F9C0-665E-4DD6-A9EE-BB9996A9260F - 1a00cf484d6cab3d"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ClientWindowCounter.TestTableViewCell.init(coder: __C.NSCoder) -&gt; Swift.Optional&lt;ClientWindowCounter.TestTableViewCell&gt;"
+                  moduleName = "ClientWindowCounter"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/matthewrawlings/Desktop/PersonalProjects/ClientWindowCounter/ClientWindowCounter/ViewControllers/Cells/TestTableViewCell.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "12"
+                  endingLineNumber = "12"
+                  offsetFromSymbolStart = "124">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

@@ -15,15 +15,20 @@ class NewClientVC: UIViewController {
     
     //MARK: - OUTLETS
     @IBOutlet weak var nameTextField: UITextField!
+    
     @IBOutlet weak var addressTextField: UITextField!
+    @IBOutlet weak var cityTextField: UITextField!
+    @IBOutlet weak var stateTextField: UITextField!
+    
     @IBOutlet weak var phoneTextField: UITextField!
     
     //MARK: - LIFECYCLES
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = isNewClient ? "New Client" : "Edit Client"
+        setupView()
+        
         if !isNewClient {
-            setupView()
+            viewsToEditClient()
         }
     }
     
@@ -61,6 +66,30 @@ class NewClientVC: UIViewController {
     
     //MARK: - HELPER METHODS
     func setupView() {
+        title = isNewClient ? "New Client" : "Edit Client"
+        nameTextField.layer.borderWidth = 0.5
+        nameTextField.layer.cornerRadius = 10.0
+        nameTextField.layer.masksToBounds = true
+        
+        addressTextField.layer.borderWidth = 0.5
+        addressTextField.layer.cornerRadius = 10.0
+        addressTextField.layer.masksToBounds = true
+        
+        cityTextField.layer.borderWidth = 0.5
+        cityTextField.layer.cornerRadius = 10.0
+        cityTextField.layer.masksToBounds = true
+        
+        stateTextField.layer.borderWidth = 0.5
+        stateTextField.layer.cornerRadius = 10.0
+        stateTextField.layer.masksToBounds = true
+        
+        phoneTextField.layer.borderWidth = 0.5
+        phoneTextField.layer.cornerRadius = 10.0
+        phoneTextField.layer.masksToBounds = true
+    }
+    
+    
+    func viewsToEditClient() {
         guard let client else { return }
         nameTextField.text = client.name
         addressTextField.text = client.address

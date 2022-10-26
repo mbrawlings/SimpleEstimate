@@ -77,6 +77,14 @@ class ProductsVC: UIViewController {
     
     //MARK: - HELPER METHODS
     func setupView() {
+        productTextField.layer.borderWidth = 0.5
+        productTextField.layer.cornerRadius = 10.0
+        productTextField.layer.masksToBounds = true
+        
+        priceTextField.layer.borderWidth = 0.5
+        priceTextField.layer.cornerRadius = 10.0
+        priceTextField.layer.masksToBounds = true
+        
         ProductController.shared.fetchProducts()
     }
 }

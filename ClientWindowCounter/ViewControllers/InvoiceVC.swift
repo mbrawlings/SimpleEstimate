@@ -36,7 +36,6 @@ class InvoiceVC: UIViewController {
         super.viewDidLoad()
         tableView.delegate = self
         tableView.dataSource = self
-        title = isNewInvoice ? "New Invoice" : "Invoice Details"
         setupView()
         createShadowLineItem(lineItems: lineItems)
         tableView.reloadData()
@@ -91,6 +90,12 @@ class InvoiceVC: UIViewController {
     
     //MARK: - HELPER METHODS
     private func setupView() {
+        title = isNewInvoice ? "New Invoice" : "Invoice Details"
+        
+        productDescription.layer.borderWidth = 0.5
+        productDescription.layer.cornerRadius = 10.0
+        productDescription.layer.masksToBounds = true
+        
         if isNewInvoice,
            let client = client {
             let invoice = Invoice(discount: 1.0, totalPrice: 0.00, invoiceDescription: "", client: client)

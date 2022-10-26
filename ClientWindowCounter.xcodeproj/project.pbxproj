@@ -20,6 +20,7 @@
 		0E2B34AF28F0D70C004507FC /* InvoicesTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E2B34AE28F0D70C004507FC /* InvoicesTVC.swift */; };
 		0E2B34B128F0D954004507FC /* NewClientVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E2B34B028F0D954004507FC /* NewClientVC.swift */; };
 		0E2B34B328F0D978004507FC /* InvoiceVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E2B34B228F0D978004507FC /* InvoiceVC.swift */; };
+		0E2E7F11290883C30097498C /* PhoneFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E2E7F10290883C30097498C /* PhoneFormat.swift */; };
 		0EC682B428FDFFBE008F6884 /* ProductsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EC682B328FDFFBE008F6884 /* ProductsVC.swift */; };
 		0EC682B728FE1535008F6884 /* Product+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EC682B628FE1535008F6884 /* Product+Convenience.swift */; };
 		0EC682B928FE181D008F6884 /* ProductController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EC682B828FE181D008F6884 /* ProductController.swift */; };
@@ -45,6 +46,7 @@
 		0E2B34AE28F0D70C004507FC /* InvoicesTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvoicesTVC.swift; sourceTree = "<group>"; };
 		0E2B34B028F0D954004507FC /* NewClientVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewClientVC.swift; sourceTree = "<group>"; };
 		0E2B34B228F0D978004507FC /* InvoiceVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvoiceVC.swift; sourceTree = "<group>"; };
+		0E2E7F10290883C30097498C /* PhoneFormat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneFormat.swift; sourceTree = "<group>"; };
 		0EC682B328FDFFBE008F6884 /* ProductsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductsVC.swift; sourceTree = "<group>"; };
 		0EC682B628FE1535008F6884 /* Product+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Product+Convenience.swift"; sourceTree = "<group>"; };
 		0EC682B828FE181D008F6884 /* ProductController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductController.swift; sourceTree = "<group>"; };
@@ -84,6 +86,7 @@
 		0E2B348528F0BCFF004507FC /* ClientWindowCounter */ = {
 			isa = PBXGroup;
 			children = (
+				0E2E7F0F290883AD0097498C /* Helpers+Extensions */,
 				0E2B34A028F0BD3E004507FC /* Model */,
 				0E2B34A528F0C3E1004507FC /* ModelController */,
 				0E2B349E28F0BD25004507FC /* ViewControllers */,
@@ -147,6 +150,14 @@
 				0EC682BC28FF1413008F6884 /* InvoiceController.swift */,
 			);
 			path = ModelController;
+			sourceTree = "<group>";
+		};
+		0E2E7F0F290883AD0097498C /* Helpers+Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				0E2E7F10290883C30097498C /* PhoneFormat.swift */,
+			);
+			path = "Helpers+Extensions";
 			sourceTree = "<group>";
 		};
 		0EC682C328FF442F008F6884 /* Cells */ = {
@@ -229,6 +240,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0E2B348728F0BCFF004507FC /* AppDelegate.swift in Sources */,
+				0E2E7F11290883C30097498C /* PhoneFormat.swift in Sources */,
 				0EC682BD28FF1413008F6884 /* InvoiceController.swift in Sources */,
 				0E2B34A928F0CD45004507FC /* Client+Convenience.swift in Sources */,
 				0EC682C528FF4449008F6884 /* InvoiceTableViewCell.swift in Sources */,
@@ -405,7 +417,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.MattRawlings.ClientWindowCounter;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -438,7 +450,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.MattRawlings.ClientWindowCounter;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";

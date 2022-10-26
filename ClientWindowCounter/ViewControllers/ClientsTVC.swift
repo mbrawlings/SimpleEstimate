@@ -6,8 +6,12 @@
 //
 
 import UIKit
+import CoreLocation
 
 class ClientsTVC: UITableViewController {
+    
+    //MARK: - OUTLETS
+    
 
     //MARK: - LIFECYCLES
     override func viewDidLoad() {
@@ -32,16 +36,17 @@ class ClientsTVC: UITableViewController {
         
         var content = cell.defaultContentConfiguration()
         
+        
         content.text = client.name
         if let address = client.address {
             if address == "" && client.phoneNumber == 0 {
                 content.secondaryText = "-\n-"
             } else if address == "" && client.phoneNumber != 0 {
-                content.secondaryText = "-\n\(client.phoneNumber)"
+                content.secondaryText = "-\n"+"\(client.phoneNumber)".applyPatternOnNumbers()
             } else if address != "" && client.phoneNumber == 0 {
                 content.secondaryText = "\(address)\n-"
             } else {
-                content.secondaryText = "\(address)\n\(client.phoneNumber)"
+                content.secondaryText = "\(address)\n"+"\(client.phoneNumber)".applyPatternOnNumbers()
             }
         }
         content.image = UIImage(systemName: "person.fill")
@@ -88,6 +93,72 @@ class ClientsTVC: UITableViewController {
         self.performSegue(withIdentifier: "toEditClient", sender: sender)
         
     }
+    
+//=============================================================================================================================
+    
+    override func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let call = UIContextualAction(style: .normal, title: "Call") { [weak self] (action, view, completionHandler) in
+            self?.handleCallClient(indexPath: indexPath)
+            completionHandler(true)
+        }
+        let map = UIContextualAction(style: .destructive, title: "Map") { [weak self] (action, view, completionHandler) in
+            self?.handleMapClient(indexPath: indexPath)
+            completionHandler(true)
+        }
+        call.backgroundColor = .systemGreen
+        map.backgroundColor = .systemBlue
+        let configuration = UISwipeActionsConfiguration(actions: [call, map])
+        
+        return configuration
+    }
+    
+    func handleCallClient(indexPath: IndexPath) {
+        let phoneNumber = ClientController.shared.clients[indexPath.row].phoneNumber
+        if phoneNumber == 0 {
+            let alert = UIAlertController(title: "Missing Info", message: "Please enter a phone number for this client", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Got it!", style: .default))
+            present(alert, animated: true)
+        } else {
+            if let url = URL(string: "tel://\(phoneNumber)") {
+                
+                UIApplication.shared.open(url, options: [:], completionHandler:nil)
+                
+                UIApplication.shared.open(url, options: [:]) { success in
+                    if !success {
+                        let alert = UIAlertController(title: "Unable to place call", message: "Ensure you are on a physical device that allows phone calls and not an Xcode simulator", preferredStyle: .alert)
+                        alert.addAction(UIAlertAction(title: "Got it!", style: .default))
+                        DispatchQueue.main.async {
+                            self.present(alert, animated: true)
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    func handleMapClient(indexPath: IndexPath) {
+        if let address = ClientController.shared.clients[indexPath.row].address {
+            let geoCoder = CLGeocoder()
+            geoCoder.geocodeAddressString(address) { (placemarks, error) in
+                if let placemarks = placemarks?.first {
+                    let location = placemarks.location?.coordinate ?? CLLocationCoordinate2D()
+                    guard let url = URL(string:"http://maps.apple.com/?daddr=\(location.latitude),\(location.longitude)") else { return }
+                    UIApplication.shared.open(url)
+                } else {
+                    let alert = UIAlertController(title: "Unable to find address", message: "Ensure address is a valid address", preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "Got it!", style: .default))
+                    self.present(alert, animated: true)
+                }
+            }
+        } else {
+            let alert = UIAlertController(title: "Unable to find address", message: "Ensure address is a valid address", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Got it!", style: .default))
+            present(alert, animated: true)
+        }
+    }
+    
+//=============================================================================================================================
+
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         80

@@ -18,33 +18,76 @@
                         <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Name..." textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="PIu-Hz-4uK">
-                                <rect key="frame" x="19.666666666666657" y="107" width="351" height="34"/>
+                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="PIu-Hz-4uK">
+                                <rect key="frame" x="19.666666666666657" y="136" width="351" height="34"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="words"/>
                             </textField>
-                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Address..." textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="MWq-Y6-3oL">
-                                <rect key="frame" x="19.666666666666657" y="149" width="351" height="34"/>
+                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Street..." textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="MWq-Y6-3oL">
+                                <rect key="frame" x="19.666666666666657" y="231" width="351" height="34"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="words"/>
                             </textField>
-                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Phone number (ex: 5553339999)" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="vmt-XK-O2X">
-                                <rect key="frame" x="19.666666666666657" y="191" width="351" height="34"/>
+                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="City..." textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="cHb-ye-mXD">
+                                <rect key="frame" x="19.666666666666657" y="273" width="351" height="34"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="words"/>
+                            </textField>
+                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="State..." textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="m8F-kl-0IA">
+                                <rect key="frame" x="19.666666666666657" y="315" width="351" height="34"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="words"/>
+                            </textField>
+                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="(ex: 5553339999)" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="vmt-XK-O2X">
+                                <rect key="frame" x="19.666666666666657" y="410" width="351" height="34"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                             </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6Te-n9-nAc">
+                                <rect key="frame" x="19.666666666666657" y="107" width="351" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Address:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yD4-Tz-Hq4">
+                                <rect key="frame" x="19.666666666666657" y="202" width="351" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Phone Number:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ljy-14-GYH">
+                                <rect key="frame" x="19.666666666666657" y="381" width="351" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Hbv-vO-dyk"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="vmt-XK-O2X" firstAttribute="width" secondItem="eg7-AM-m8T" secondAttribute="width" multiplier="0.9" id="3al-uk-sI7"/>
-                            <constraint firstItem="MWq-Y6-3oL" firstAttribute="top" secondItem="PIu-Hz-4uK" secondAttribute="bottom" constant="8" id="5QK-TO-BBZ"/>
-                            <constraint firstItem="vmt-XK-O2X" firstAttribute="top" secondItem="MWq-Y6-3oL" secondAttribute="bottom" constant="8" id="D7E-LZ-aAO"/>
+                            <constraint firstItem="ljy-14-GYH" firstAttribute="centerX" secondItem="Hbv-vO-dyk" secondAttribute="centerX" id="5ek-Kp-p0S"/>
+                            <constraint firstItem="yD4-Tz-Hq4" firstAttribute="centerX" secondItem="Hbv-vO-dyk" secondAttribute="centerX" id="5kx-XN-s5S"/>
+                            <constraint firstItem="vmt-XK-O2X" firstAttribute="top" secondItem="ljy-14-GYH" secondAttribute="bottom" constant="8" id="7We-OO-f1W"/>
+                            <constraint firstItem="cHb-ye-mXD" firstAttribute="centerX" secondItem="Hbv-vO-dyk" secondAttribute="centerX" id="B6a-th-4UV"/>
                             <constraint firstItem="PIu-Hz-4uK" firstAttribute="width" secondItem="eg7-AM-m8T" secondAttribute="width" multiplier="0.9" id="EPh-p0-e0F"/>
+                            <constraint firstItem="ljy-14-GYH" firstAttribute="width" secondItem="eg7-AM-m8T" secondAttribute="width" multiplier="0.9" id="Jp1-XT-AI4"/>
                             <constraint firstItem="MWq-Y6-3oL" firstAttribute="width" secondItem="eg7-AM-m8T" secondAttribute="width" multiplier="0.9" id="KF1-Sw-swU"/>
+                            <constraint firstItem="m8F-kl-0IA" firstAttribute="centerX" secondItem="Hbv-vO-dyk" secondAttribute="centerX" id="L8I-tZ-qCN"/>
+                            <constraint firstItem="ljy-14-GYH" firstAttribute="top" secondItem="m8F-kl-0IA" secondAttribute="bottom" constant="32" id="NRK-WY-P3u"/>
+                            <constraint firstItem="6Te-n9-nAc" firstAttribute="top" secondItem="Hbv-vO-dyk" secondAttribute="top" constant="16" id="On0-yu-blZ"/>
+                            <constraint firstItem="m8F-kl-0IA" firstAttribute="width" secondItem="eg7-AM-m8T" secondAttribute="width" multiplier="0.9" id="QG4-vf-f3J"/>
+                            <constraint firstItem="cHb-ye-mXD" firstAttribute="top" secondItem="MWq-Y6-3oL" secondAttribute="bottom" constant="8" id="T0g-Xv-Vgr"/>
+                            <constraint firstItem="MWq-Y6-3oL" firstAttribute="top" secondItem="yD4-Tz-Hq4" secondAttribute="bottom" constant="8" id="TLk-DF-c2y"/>
+                            <constraint firstItem="m8F-kl-0IA" firstAttribute="top" secondItem="cHb-ye-mXD" secondAttribute="bottom" constant="8" id="UbR-nz-ZhG"/>
                             <constraint firstItem="MWq-Y6-3oL" firstAttribute="centerX" secondItem="Hbv-vO-dyk" secondAttribute="centerX" id="WtV-GQ-6J1"/>
+                            <constraint firstItem="PIu-Hz-4uK" firstAttribute="top" secondItem="6Te-n9-nAc" secondAttribute="bottom" constant="8" id="XLi-6d-kD9"/>
                             <constraint firstItem="PIu-Hz-4uK" firstAttribute="centerX" secondItem="Hbv-vO-dyk" secondAttribute="centerX" id="gOQ-TZ-i64"/>
-                            <constraint firstItem="PIu-Hz-4uK" firstAttribute="top" secondItem="Hbv-vO-dyk" secondAttribute="top" constant="16" id="m6g-MG-Bvf"/>
+                            <constraint firstItem="cHb-ye-mXD" firstAttribute="width" secondItem="eg7-AM-m8T" secondAttribute="width" multiplier="0.9" id="lM3-PA-QZw"/>
+                            <constraint firstItem="6Te-n9-nAc" firstAttribute="width" secondItem="eg7-AM-m8T" secondAttribute="width" multiplier="0.9" id="rfS-KY-l5Y"/>
+                            <constraint firstItem="yD4-Tz-Hq4" firstAttribute="width" secondItem="eg7-AM-m8T" secondAttribute="width" multiplier="0.9" id="x3S-z3-kLQ"/>
+                            <constraint firstItem="yD4-Tz-Hq4" firstAttribute="top" secondItem="PIu-Hz-4uK" secondAttribute="bottom" constant="32" id="xDR-de-XX8"/>
+                            <constraint firstItem="6Te-n9-nAc" firstAttribute="centerX" secondItem="Hbv-vO-dyk" secondAttribute="centerX" id="xjf-7X-ife"/>
                             <constraint firstItem="vmt-XK-O2X" firstAttribute="centerX" secondItem="Hbv-vO-dyk" secondAttribute="centerX" id="zP1-XM-LtE"/>
                         </constraints>
                     </view>
@@ -57,8 +100,10 @@
                     </navigationItem>
                     <connections>
                         <outlet property="addressTextField" destination="MWq-Y6-3oL" id="kcq-Rh-2uL"/>
+                        <outlet property="cityTextField" destination="cHb-ye-mXD" id="WmO-Ib-5V5"/>
                         <outlet property="nameTextField" destination="PIu-Hz-4uK" id="a2H-XB-XXz"/>
                         <outlet property="phoneTextField" destination="vmt-XK-O2X" id="MjV-jg-A1k"/>
+                        <outlet property="stateTextField" destination="m8F-kl-0IA" id="G58-1Z-875"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vsw-K4-gJ3" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -261,16 +306,21 @@
                             <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gl4-Dy-EkK">
                                 <rect key="frame" x="19.666666666666657" y="140.33333333333334" width="351" height="34"/>
                                 <subviews>
-                                    <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Product..." textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="2Q4-1I-gs9">
-                                        <rect key="frame" x="0.0" y="0.0" width="245.66666666666666" height="34"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                                    </textField>
-                                    <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="$0.00" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="PNB-t1-pB9">
-                                        <rect key="frame" x="245.66666666666663" y="0.0" width="70" height="34"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits" keyboardType="decimalPad"/>
-                                    </textField>
+                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="A2O-hA-lfo">
+                                        <rect key="frame" x="0.0" y="0.0" width="315.66666666666669" height="34"/>
+                                        <subviews>
+                                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Product..." textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="2Q4-1I-gs9">
+                                                <rect key="frame" x="0.0" y="0.0" width="237.66666666666666" height="34"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                            </textField>
+                                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="$0.00" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="PNB-t1-pB9">
+                                                <rect key="frame" x="245.66666666666663" y="0.0" width="70" height="34"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits" keyboardType="decimalPad"/>
+                                            </textField>
+                                        </subviews>
+                                    </stackView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Sq0-DO-blq">
                                         <rect key="frame" x="315.66666666666663" y="0.0" width="35.333333333333314" height="34"/>
                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
@@ -284,7 +334,7 @@
                                 </subviews>
                                 <constraints>
                                     <constraint firstItem="Sq0-DO-blq" firstAttribute="width" secondItem="gl4-Dy-EkK" secondAttribute="width" multiplier="0.1" id="ZGN-Ad-DSO"/>
-                                    <constraint firstItem="PNB-t1-pB9" firstAttribute="width" secondItem="gl4-Dy-EkK" secondAttribute="width" multiplier="0.2" id="vux-OL-C1V"/>
+                                    <constraint firstItem="PNB-t1-pB9" firstAttribute="width" secondItem="gl4-Dy-EkK" secondAttribute="width" multiplier="0.2" id="zOF-KD-gxm"/>
                                 </constraints>
                             </stackView>
                         </subviews>
@@ -308,7 +358,7 @@
                         </connections>
                     </view>
                     <navigationItem key="navigationItem" title="Manage Products" id="8Rm-Sf-4Kk">
-                        <barButtonItem key="rightBarButtonItem" title="Done" id="U6a-3O-7we">
+                        <barButtonItem key="rightBarButtonItem" title="Back" id="U6a-3O-7we">
                             <connections>
                                 <action selector="doneButtonTapped:" destination="nls-UV-COW" id="9UD-s1-Chb"/>
                             </connections>

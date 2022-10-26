@@ -45,12 +45,21 @@ class InvoicesTVC: UITableViewController {
         return cell
     }
     
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            let invoiceToDelete = InvoiceController.shared.filteredInvoices[indexPath.row]
-            InvoiceController.shared.deleteInvoice(invoice: invoiceToDelete)
-            tableView.deleteRows(at: [indexPath], with: .fade)
+    override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let delete = UIContextualAction(style: .destructive, title: nil) { [weak self] (action, view, completionHandler) in
+            self?.handleDeleteInvoice(indexPath: indexPath)
+            completionHandler(true)
         }
+        delete.image = UIImage(systemName: "trash")
+        delete.backgroundColor = .systemRed
+        let configuration = UISwipeActionsConfiguration(actions: [delete])
+        return configuration
+    }
+    
+    func handleDeleteInvoice(indexPath: IndexPath) {
+        let invoiceToDelete = InvoiceController.shared.filteredInvoices[indexPath.row]
+        InvoiceController.shared.deleteInvoice(invoice: invoiceToDelete)
+        tableView.deleteRows(at: [indexPath], with: .fade)
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

@@ -57,24 +57,19 @@ class ClientsTVC: UITableViewController {
         return cell
     }
     
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            let clientToDelete = ClientController.shared.clients[indexPath.row]
-            ClientController.shared.deleteClient(client: clientToDelete)
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        }
-    }
-    
     override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let edit = UIContextualAction(style: .normal, title: "Edit") { [weak self] (action, view, completionHandler) in
             self?.handleEditClient(indexPath: indexPath)
             completionHandler(true)
         }
+        
         let delete = UIContextualAction(style: .destructive, title: "Delete") { [weak self] (action, view, completionHandler) in
             self?.handleDeleteClient(indexPath: indexPath)
             completionHandler(true)
         }
+        edit.image = UIImage(systemName: "pencil.line")
         edit.backgroundColor = .systemYellow
+        delete.image = UIImage(systemName: "trash")
         delete.backgroundColor = .systemRed
         let configuration = UISwipeActionsConfiguration(actions: [delete, edit])
         
@@ -105,7 +100,9 @@ class ClientsTVC: UITableViewController {
             self?.handleMapClient(indexPath: indexPath)
             completionHandler(true)
         }
+        call.image = UIImage(systemName: "phone")
         call.backgroundColor = .systemGreen
+        map.image = UIImage(systemName: "map")
         map.backgroundColor = .systemBlue
         let configuration = UISwipeActionsConfiguration(actions: [call, map])
         

@@ -32,6 +32,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0E129FFF291ACC5E00C3096C /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		0E2B348328F0BCFF004507FC /* ClientWindowCounter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ClientWindowCounter.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0E2B348628F0BCFF004507FC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0E2B348828F0BCFF004507FC /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -72,6 +73,7 @@
 		0E2B347A28F0BCFF004507FC = {
 			isa = PBXGroup;
 			children = (
+				0E129FFF291ACC5E00C3096C /* README.md */,
 				0E2B348528F0BCFF004507FC /* ClientWindowCounter */,
 				0E2B348428F0BCFF004507FC /* Products */,
 			);

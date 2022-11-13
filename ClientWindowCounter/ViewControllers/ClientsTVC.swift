@@ -37,6 +37,7 @@ class ClientsTVC: UITableViewController {
         var content = cell.defaultContentConfiguration()
         
         content.text = client.name
+        content.textProperties.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
         if let street = client.streetAddress,
            let city = client.cityAddress,
            let state = client.stateAddress {

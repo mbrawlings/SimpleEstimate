@@ -10,12 +10,11 @@ import CoreLocation
 
 class ClientsTVC: UITableViewController {
     
-    //MARK: - OUTLETS
-    
-
     //MARK: - LIFECYCLES
     override func viewDidLoad() {
         super.viewDidLoad()
+        Styling.styleNavigationTitle(navigationController: navigationController)
+        Styling.styleBackgroundFor(view: view, tableView: tableView)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -25,47 +24,32 @@ class ClientsTVC: UITableViewController {
     }
 
     // MARK: - TABLE VIEW METHODS
+    override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        cell.backgroundColor = UIColor.clear
+    }
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return ClientController.shared.clients.count
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "clientCell", for: indexPath)
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "clientCell", for: indexPath) as? ClientTableCell else { return UITableViewCell() }
 
         let client = ClientController.shared.clients[indexPath.row]
-
-        var content = cell.defaultContentConfiguration()
         
-        content.text = client.name
-        content.textProperties.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
-        if let street = client.streetAddress,
-           let city = client.cityAddress,
-           let state = client.stateAddress {
-            if street == "" && city == "" && state == "" && client.phoneNumber == 0 {
-                content.secondaryText = "-\n-"
-            } else if street == "" && city == "" && state == "" && client.phoneNumber != 0 {
-                content.secondaryText = "-\n"+"\(client.phoneNumber)".applyPatternOnNumbers()
-            } else if client.phoneNumber == 0 {
-                content.secondaryText = "\(street) \(city) \(state)\n-"
-            } else {
-                content.secondaryText = "\(street) \(city) \(state)\n"+"\(client.phoneNumber)".applyPatternOnNumbers()
-            }
-        }
-        content.image = UIImage(systemName: "person.fill")
-        content.imageProperties.maximumSize = CGSize(width: 50, height: 50)
-
-        cell.contentConfiguration = content
-            
+        cell.client = client
+        
         return cell
     }
     
+    //MARK: - TRAILING SWIPE ACTIONS
     override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let edit = UIContextualAction(style: .normal, title: "Edit") { [weak self] (action, view, completionHandler) in
+        let edit = UIContextualAction(style: .normal, title: nil) { [weak self] (action, view, completionHandler) in
             self?.handleEditClient(indexPath: indexPath)
             completionHandler(true)
         }
         
-        let delete = UIContextualAction(style: .destructive, title: "Delete") { [weak self] (action, view, completionHandler) in
+        let delete = UIContextualAction(style: .destructive, title: nil) { [weak self] (action, view, completionHandler) in
             self?.handleDeleteClient(indexPath: indexPath)
             completionHandler(true)
         }
@@ -79,26 +63,31 @@ class ClientsTVC: UITableViewController {
     }
     
     func handleDeleteClient(indexPath: IndexPath) {
-        let clientToDelete = ClientController.shared.clients[indexPath.row]
-        ClientController.shared.deleteClient(client: clientToDelete)
-        tableView.deleteRows(at: [indexPath], with: .fade)
+        let alert = UIAlertController(title: "Delete?", message: "This action cannot be undone", preferredStyle: .actionSheet)
+        let deleteAction = UIAlertAction(title: "Delete", style: .destructive) { action in
+            let clientToDelete = ClientController.shared.clients[indexPath.row]
+            ClientController.shared.deleteClient(client: clientToDelete)
+            self.tableView.deleteRows(at: [indexPath], with: .fade)
+        }
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
+        alert.addAction(deleteAction)
+        alert.addAction(cancelAction)
+        present(alert, animated: true)
     }
     
     func handleEditClient(indexPath: IndexPath) {
         let sender = ClientController.shared.clients[indexPath.row]
         
         self.performSegue(withIdentifier: "toEditClient", sender: sender)
-        
     }
     
-//=============================================================================================================================
-    
+    //MARK: - LEADING SWIPE ACTIONS
     override func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let call = UIContextualAction(style: .normal, title: "Call") { [weak self] (action, view, completionHandler) in
+        let call = UIContextualAction(style: .normal, title: nil) { [weak self] (action, view, completionHandler) in
             self?.handleCallClient(indexPath: indexPath)
             completionHandler(true)
         }
-        let map = UIContextualAction(style: .destructive, title: "Map") { [weak self] (action, view, completionHandler) in
+        let map = UIContextualAction(style: .destructive, title: nil) { [weak self] (action, view, completionHandler) in
             self?.handleMapClient(indexPath: indexPath)
             completionHandler(true)
         }
@@ -111,6 +100,7 @@ class ClientsTVC: UITableViewController {
         return configuration
     }
     
+    //MARK: - CALLING
     func handleCallClient(indexPath: IndexPath) {
         let phoneNumber = ClientController.shared.clients[indexPath.row].phoneNumber
         if phoneNumber == 0 {
@@ -135,6 +125,7 @@ class ClientsTVC: UITableViewController {
         }
     }
     
+    //MARK: - MAPPING
     func handleMapClient(indexPath: IndexPath) {
         if let street = ClientController.shared.clients[indexPath.row].streetAddress,
            let city = ClientController.shared.clients[indexPath.row].cityAddress,
@@ -143,29 +134,36 @@ class ClientsTVC: UITableViewController {
             geoCoder.geocodeAddressString("\(street) \(city) \(state)") { (placemarks, error) in
                 if let placemarks = placemarks?.first {
                     let location = placemarks.location?.coordinate ?? CLLocationCoordinate2D()
-                    guard let url = URL(string:"http://maps.apple.com/?daddr=\(location.latitude),\(location.longitude)") else { return }
-                    UIApplication.shared.open(url)
+                    
+                    let mapsAlert = UIAlertController(title: "Open in...", message: nil, preferredStyle: .actionSheet)
+                    let googleMapsAction = UIAlertAction(title: "Google Maps", style: .default) { action in
+                        guard let url = URL(string:"comgooglemaps://?saddr=&daddr=\(location.latitude),\(location.longitude)&directionsmode=driving") else { return }
+                        UIApplication.shared.open(url)
+                    }
+                    let appleMapsAction = UIAlertAction(title: "Apple Maps", style: .default) { action in
+                        guard let url = URL(string:"http://maps.apple.com/?daddr=\(location.latitude),\(location.longitude)") else { return }
+                        UIApplication.shared.open(url)
+                    }
+                    let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
+                    mapsAlert.addAction(googleMapsAction)
+                    mapsAlert.addAction(appleMapsAction)
+                    mapsAlert.addAction(cancelAction)
+                    self.present(mapsAlert, animated: true)
+                    
                 } else {
-                    let alert = UIAlertController(title: "Unable to find address", message: "Ensure address is a valid address", preferredStyle: .alert)
-                    alert.addAction(UIAlertAction(title: "Got it!", style: .default))
-                    self.present(alert, animated: true)
+                    self.present(Alert.unableToFindAddress(), animated: true)
                 }
             }
         } else {
-            let alert = UIAlertController(title: "Unable to find address", message: "Ensure address is a valid address", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "Got it!", style: .default))
-            present(alert, animated: true)
+            present(Alert.unableToFindAddress(), animated: true)
         }
     }
     
-//=============================================================================================================================
-
-    
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        80
+        100
     }
 
-    // MARK: - Navigation
+    //MARK: - NAVIGATION
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "toInvoicesVC" {
             guard let indexPath = tableView.indexPathForSelectedRow,
@@ -180,6 +178,5 @@ class ClientsTVC: UITableViewController {
             destination.client = clientToEdit as? Client
             destination.isNewClient = false
         }
-        
     }
 } // end of class

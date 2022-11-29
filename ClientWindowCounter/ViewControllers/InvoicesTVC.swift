@@ -15,6 +15,7 @@ class InvoicesTVC: UITableViewController {
     //MARK: - LIFECYCLES
     override func viewDidLoad() {
         super.viewDidLoad()
+        Styling.styleBackgroundFor(view: view, tableView: tableView)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -26,21 +27,20 @@ class InvoicesTVC: UITableViewController {
     }
 
     // MARK: - TABLE VIEW DATA SOURCE
+    override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        cell.backgroundColor = UIColor.clear
+    }
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return InvoiceController.shared.filteredInvoices.count
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "invoiceCell", for: indexPath)
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "invoiceCell", for: indexPath) as? InvoicesTableCell else { return UITableViewCell() }
+        
         let invoice = InvoiceController.shared.filteredInvoices[indexPath.row]
         
-        var content = cell.defaultContentConfiguration()
-        
-        content.text = String(format: "$%.2f", invoice.totalPrice)
-        
-        content.secondaryText = invoice.invoiceDescription
-        
-        cell.contentConfiguration = content
+        cell.invoice = invoice
         
         return cell
     }
@@ -57,9 +57,16 @@ class InvoicesTVC: UITableViewController {
     }
     
     func handleDeleteInvoice(indexPath: IndexPath) {
-        let invoiceToDelete = InvoiceController.shared.filteredInvoices[indexPath.row]
-        InvoiceController.shared.deleteInvoice(invoice: invoiceToDelete)
-        tableView.deleteRows(at: [indexPath], with: .fade)
+        let alert = UIAlertController(title: "Delete?", message: "This action cannot be undone", preferredStyle: .actionSheet)
+        let deleteAction = UIAlertAction(title: "Delete", style: .destructive) { action in
+            let invoiceToDelete = InvoiceController.shared.filteredInvoices[indexPath.row]
+            InvoiceController.shared.deleteInvoice(invoice: invoiceToDelete)
+            self.tableView.deleteRows(at: [indexPath], with: .fade)
+        }
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
+        alert.addAction(deleteAction)
+        alert.addAction(cancelAction)
+        present(alert, animated: true)
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -81,5 +88,4 @@ class InvoicesTVC: UITableViewController {
             destination.invoice = invoiceToEdit
         }
     }
-
 }

@@ -19,10 +19,14 @@ class ProductsVC: UIViewController {
     @IBOutlet weak var productTextField: UITextField!
     @IBOutlet weak var priceTextField: UITextField!
     @IBOutlet weak var addProductButton: UIButton!
+    @IBOutlet weak var productView: UIView!
+    @IBOutlet weak var viewSeparatorLine: UIView!
     
     //MARK: - LIFECYCLES
     override func viewDidLoad() {
         super.viewDidLoad()
+        Styling.styleBackgroundFor(view: view, tableView: tableView)
+        productView.backgroundColor = UIColor(red: 102/255, green: 162/255, blue: 186/255, alpha: 1.0)
         tableView.delegate = self
         tableView.dataSource = self
         setupView()
@@ -38,24 +42,20 @@ class ProductsVC: UIViewController {
         priceTextField.resignFirstResponder()
     }
     
-    @IBAction func addProductButtonTapped(_ sender: UIButton) {
+    @IBAction func addProductButtonTapped(_ sender: Any) {
         guard let productName = productTextField.text,
               !productName.isEmpty,
               let productPrice = priceTextField.text,
               !productPrice.isEmpty
         else {
-            let alert = UIAlertController(title: "Error", message: "Product fields cannot be empty", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "Got it!", style: .default))
-            present(alert, animated: true)
+            present(Alert.error(message: "Product fields cannot be empty"), animated: true)
             return
         }
         if !isUpdating {
             if let price = Double(productPrice) {
                 ProductController.shared.createProduct(productName: productName, price: price)
             } else {
-                let alert = UIAlertController(title: "Error", message: "Prices can only contain numbers", preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: "Got it!", style: .default))
-                present(alert, animated: true)
+                present(Alert.error(message: "Prices can only contain numbers"), animated: true)
             }
         } else if isUpdating {
             guard let productToEdit else { return }
@@ -63,50 +63,43 @@ class ProductsVC: UIViewController {
                 ProductController.shared.editProduct(product: productToEdit, productName: productName, price: price)
                 isUpdating = false
             } else {
-                let alert = UIAlertController(title: "Error", message: "Prices can only contain numbers", preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: "Got it!", style: .default))
-                present(alert, animated: true)
+                present(Alert.error(message: "Prices can only contain numbers"), animated: true)
             }
         }
-        addProductButton.setImage(UIImage(systemName: "plus"), for: .normal)
+        addProductButton.setTitle("Add Product", for: .normal)
         productTextField.text = ""
         priceTextField.text = ""
+        productTextField.resignFirstResponder()
         priceTextField.resignFirstResponder()
         tableView.reloadData()
     }
     
     //MARK: - HELPER METHODS
     func setupView() {
-        productTextField.layer.borderWidth = 0.5
-        productTextField.layer.cornerRadius = 10.0
-        productTextField.layer.masksToBounds = true
-        
-        priceTextField.layer.borderWidth = 0.5
-        priceTextField.layer.cornerRadius = 10.0
-        priceTextField.layer.masksToBounds = true
+        Styling.styleTextFieldWith(textField: productTextField)
+        Styling.styleTextFieldWith(textField: priceTextField)
+        Styling.styleLineBreakWith(view: viewSeparatorLine)
+        Styling.styleButtonWith(button: addProductButton)
         
         ProductController.shared.fetchProducts()
     }
 }
 
-    //MARK: - TABLE VIEW
+    //MARK: - TABLE VIEW METHODS
 extension ProductsVC: UITableViewDelegate, UITableViewDataSource {
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        cell.backgroundColor = UIColor.clear
+    }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         ProductController.shared.products.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "productCell", for: indexPath)
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "productCell", for: indexPath) as? ProductTableCell else { return UITableViewCell() }
         
         let product = ProductController.shared.products[indexPath.row]
-        
-        var content = cell.defaultContentConfiguration()
-        
-        content.text = product.productName
-        content.secondaryText = String(format: "$%.2f", product.price)
-
-        cell.contentConfiguration = content
+        cell.product = product
         
         return cell
     }
@@ -130,28 +123,28 @@ extension ProductsVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     func handleDeleteProduct(indexPath: IndexPath) {
-        let productToDelete = ProductController.shared.products[indexPath.row]
-        ProductController.shared.deleteProduct(product: productToDelete)
-        tableView.deleteRows(at: [indexPath], with: .fade)
+        let alert = UIAlertController(title: "Delete?", message: "This action cannot be undone", preferredStyle: .actionSheet)
+        let deleteAction = UIAlertAction(title: "Delete", style: .destructive) { action in
+            let productToDelete = ProductController.shared.products[indexPath.row]
+            ProductController.shared.deleteProduct(product: productToDelete)
+            self.tableView.deleteRows(at: [indexPath], with: .fade)
+        }
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
+        alert.addAction(deleteAction)
+        alert.addAction(cancelAction)
+        present(alert, animated: true)
     }
     
     func handleEditProduct(indexPath: IndexPath) {
         isUpdating = true
         productTextField.text = ProductController.shared.products[indexPath.row].productName
         priceTextField.text = "\(ProductController.shared.products[indexPath.row].price)"
-        addProductButton.setImage(UIImage(systemName: "checkmark"), for: .normal)
+        productTextField.becomeFirstResponder()
+        addProductButton.setTitle("Save Changes", for: .normal)
         self.productToEdit = ProductController.shared.products[indexPath.row]
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         60
-    }
-} // end of class
-
-extension ProductsVC: UITextFieldDelegate {
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        productTextField.resignFirstResponder()
-        priceTextField.resignFirstResponder()
-        return true
     }
 }

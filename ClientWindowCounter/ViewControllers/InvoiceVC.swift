@@ -30,12 +30,15 @@ class InvoiceVC: UIViewController {
     @IBOutlet weak var productDescription: UITextField!
     @IBOutlet weak var totalPriceLabel: UILabel!
     @IBOutlet weak var discountSegmentControl: UISegmentedControl!
+    @IBOutlet weak var viewSeparator: UIView!
     
     //MARK: - Lifecycles
     override func viewDidLoad() {
         super.viewDidLoad()
+        Styling.styleBackgroundFor(view: view, tableView: tableView)
         tableView.delegate = self
         tableView.dataSource = self
+        productDescription.delegate = self
         setupView()
         createShadowLineItem(lineItems: lineItems)
         tableView.reloadData()
@@ -67,9 +70,7 @@ class InvoiceVC: UIViewController {
         invoice.discount = discountChosen
         if isNewInvoice {
             if invoice.invoiceDescription == "" && invoice.totalPrice == 0.0 {
-                let alert = UIAlertController(title: "Error", message: "An invoice requires either a description or a total price", preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: "Got it!", style: .default))
-                present(alert, animated: true)
+                present(Alert.error(message: "An invoice requires either a description or a total price"), animated: true)
             } else {
                 InvoiceController.shared.save(invoice: invoice)
             }
@@ -91,10 +92,8 @@ class InvoiceVC: UIViewController {
     //MARK: - HELPER METHODS
     private func setupView() {
         title = isNewInvoice ? "New Invoice" : "Invoice Details"
-        
-        productDescription.layer.borderWidth = 0.5
-        productDescription.layer.cornerRadius = 10.0
-        productDescription.layer.masksToBounds = true
+        Styling.styleTextFieldWith(textField: productDescription)
+        Styling.styleLineBreakWith(view: viewSeparator)
         
         if isNewInvoice,
            let client = client {
@@ -170,12 +169,16 @@ class InvoiceVC: UIViewController {
 
     //MARK: - TABLEVIEW METHODS
 extension InvoiceVC: UITableViewDelegate, UITableViewDataSource {
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        cell.backgroundColor = UIColor.clear
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         lineItems.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "lineItemCell", for: indexPath) as? InvoiceTableViewCell else { return UITableViewCell() }
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "lineItemCell", for: indexPath) as? InvoiceTableCell else { return UITableViewCell() }
         
         if isNewInvoice {
             let lineItem = lineItems[indexPath.row]
@@ -192,6 +195,10 @@ extension InvoiceVC: UITableViewDelegate, UITableViewDataSource {
         }
         
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        60
     }
 }
 
@@ -215,5 +222,15 @@ extension InvoiceVC: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         productDescription.resignFirstResponder()
         return true
+    }
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        // get the current text, or use an empty string if that failed
+        let currentText = textField.text ?? ""
+        // attempt to read the range they are trying to change, or exit if we can't
+        guard let stringRange = Range(range, in: currentText) else { return false }
+        // add their new text to the existing text
+        let updatedText = currentText.replacingCharacters(in: stringRange, with: string)
+        // make sure the result is under 70 characters
+        return updatedText.count <= 70
     }
 }

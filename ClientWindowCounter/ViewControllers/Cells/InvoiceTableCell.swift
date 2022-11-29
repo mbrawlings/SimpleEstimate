@@ -1,5 +1,5 @@
 //
-//  InvoiceTableViewCell.swift
+//  InvoiceTableCell.swift
 //  ClientWindowCounter
 //
 //  Created by Matthew Rawlings on 10/18/22.
@@ -12,7 +12,7 @@ protocol InvoiceTableViewCellDelegate: AnyObject {
     func stepperValueChanged()
 }
 
-class InvoiceTableViewCell: UITableViewCell {
+class InvoiceTableCell: UITableViewCell {
     
     //MARK: - PROPERTIES
     private var lineItem: LineItem?
@@ -24,6 +24,7 @@ class InvoiceTableViewCell: UITableViewCell {
     @IBOutlet weak var productNameLabel: UILabel!
     @IBOutlet weak var quantityLabel: UILabel!
     @IBOutlet weak var stepper: UIStepper!
+    @IBOutlet weak var productInvoiceView: UIView!
     
     //MARK: - LIFECYCLES
     override func awakeFromNib() {
@@ -55,12 +56,14 @@ class InvoiceTableViewCell: UITableViewCell {
         productNameLabel.text = product.productName
         quantityLabel.text = "\(lineItem.quantity)"
         stepper.value = Double(lineItem.quantity)
+        Styling.styleCellWith(view: productInvoiceView)
         self.lineItem = lineItem
     }
     func updateViews(with lineItem: ShadowLineItem) {
         productNameLabel.text = lineItem.product.productName
         quantityLabel.text = "\(lineItem.quantity)"
         stepper.value = Double(lineItem.quantity)
+        Styling.styleCellWith(view: productInvoiceView)
         self.shadowLineItem = lineItem
     }
 }

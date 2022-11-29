@@ -15,21 +15,23 @@ class NewClientVC: UIViewController {
     
     //MARK: - OUTLETS
     @IBOutlet weak var nameTextField: UITextField!
-    
     @IBOutlet weak var streetTextField: UITextField!
     @IBOutlet weak var cityTextField: UITextField!
     @IBOutlet weak var stateTextField: UITextField!
-    
     @IBOutlet weak var phoneTextField: UITextField!
     
     //MARK: - LIFECYCLES
     override func viewDidLoad() {
         super.viewDidLoad()
+        Styling.styleBackgroundFor(view: view, tableView: nil)
         setupView()
-        
         if !isNewClient {
             viewsToEditClient()
         }
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        nameTextField.becomeFirstResponder()
     }
     
     //MARK: - ACTION
@@ -40,12 +42,8 @@ class NewClientVC: UIViewController {
         else { return }
         guard let name = nameTextField.text,
               !name.isEmpty
-//                ,
-//              let address = addressTextField.text
         else {
-            let alert = UIAlertController(title: "Error", message: "Must enter a client name", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "Got it!", style: .default))
-            present(alert, animated: true)
+            present(Alert.error(message: "Must enter a client name"), animated: true)
             return }
         guard let phoneNumberString = phoneTextField.text else { return }
         var phoneNumber: Int64 = 0
@@ -54,9 +52,7 @@ class NewClientVC: UIViewController {
                   phoneNumberString.count == 10
             else {
                 print(phoneNumberString)
-                let alert = UIAlertController(title: "Error", message: "Must be 10 digits only", preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: "Got it!", style: .default))
-                present(alert, animated: true)
+                present(Alert.error(message: "Must be 10 digits only"), animated: true)
                 return }
             phoneNumber = phoneNumberInt
         }
@@ -69,30 +65,23 @@ class NewClientVC: UIViewController {
         navigationController?.popViewController(animated: true)
     }
     
+    @IBAction func dismissKeyboardGestureTapped(_ sender: Any) {
+        nameTextField.resignFirstResponder()
+        streetTextField.resignFirstResponder()
+        cityTextField.resignFirstResponder()
+        stateTextField.resignFirstResponder()
+        phoneTextField.resignFirstResponder()
+    }
+    
     //MARK: - HELPER METHODS
     func setupView() {
         title = isNewClient ? "New Client" : "Edit Client"
-        nameTextField.layer.borderWidth = 0.5
-        nameTextField.layer.cornerRadius = 10.0
-        nameTextField.layer.masksToBounds = true
-        
-        streetTextField.layer.borderWidth = 0.5
-        streetTextField.layer.cornerRadius = 10.0
-        streetTextField.layer.masksToBounds = true
-        
-        cityTextField.layer.borderWidth = 0.5
-        cityTextField.layer.cornerRadius = 10.0
-        cityTextField.layer.masksToBounds = true
-        
-        stateTextField.layer.borderWidth = 0.5
-        stateTextField.layer.cornerRadius = 10.0
-        stateTextField.layer.masksToBounds = true
-        
-        phoneTextField.layer.borderWidth = 0.5
-        phoneTextField.layer.cornerRadius = 10.0
-        phoneTextField.layer.masksToBounds = true
+        Styling.styleTextFieldWith(textField: nameTextField)
+        Styling.styleTextFieldWith(textField: streetTextField)
+        Styling.styleTextFieldWith(textField: cityTextField)
+        Styling.styleTextFieldWith(textField: stateTextField)
+        Styling.styleTextFieldWith(textField: phoneTextField)
     }
-    
     
     func viewsToEditClient() {
         guard let client else { return }
@@ -102,15 +91,4 @@ class NewClientVC: UIViewController {
         stateTextField.text = client.stateAddress
         phoneTextField.text = client.phoneNumber == 0 ? "" : "\(client.phoneNumber)"
     }
-
-    /*
-    // MARK: - NAVIGATION
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

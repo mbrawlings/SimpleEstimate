@@ -1,5 +1,5 @@
 //
-//  ClientTableViewCell.swift
+//  ClientTableCell.swift
 //  ClientWindowCounter
 //
 //  Created by Matthew Rawlings on 10/26/22.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ClientTableViewCell: UITableViewCell {
+class ClientTableCell: UITableViewCell {
     
     //MARK: - PROPERTIES
     var client: Client? {
@@ -29,16 +29,14 @@ class ClientTableViewCell: UITableViewCell {
     //MARK: - LIFECYCLES
     override func awakeFromNib() {
         super.awakeFromNib()
-        
-        clientView.layer.borderWidth = 1.0
-        clientView.layer.cornerRadius = clientView.frame.height / 10
-//        clientView.backgroundColor = .systemGray6
     }
     
     //MARK: - HELPER METHODS
     func setupView() {
         guard let client = client else { return }
         nameLabel.text = client.name
+        Styling.styleCellWith(view: clientView)
+        
         if let street = client.streetAddress,
            let city = client.cityAddress,
            let state = client.stateAddress {
@@ -57,8 +55,5 @@ class ClientTableViewCell: UITableViewCell {
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
     }
-
 }
